@@ -1,24 +1,19 @@
-{
-  "name": "portalboda",
-  "version": "1.0.0",
-  "description": "Portal Boda - Fotografía y Video Profesional para Matrimonios en Chile",
-  "private": true,
-  "scripts": {
-    "dev": "python3 -m http.server 8000",
-    "build": "echo 'Static site - no build needed'"
-  },
-  "keywords": [
-    "fotografo matrimonio chile",
-    "video matrimonio",
-    "postboda algarrobo",
-    "fotografo bodas santiago",
-    "fotografo bodas valparaiso",
-    "drone matrimonio",
-    "cabina fotografica",
-    "espejo magico",
-    "camara 360",
-    "portal boda"
-  ],
-  "author": "Portal Boda SPA",
-  "license": "UNLICENSED"
-}
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /*.json$
+
+Sitemap: https://www.portalboda.cl/sitemap.xml
+
+# Crawl-delay para bots
+Crawl-delay: 1
+
+# Específico para Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Específico para Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
