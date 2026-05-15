@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Boda · Cada matrimonio merece su propia película</title>
+<meta name="description" content="10 años filmando los matrimonios de Chile. Fotografía, video, drone, cabina, espejo mágico, 360 y postboda en playa de Algarrobo. Todo tu matrimonio con un solo proveedor.">
+<meta name="keywords" content="fotografo matrimonio chile, video matrimonio, postboda algarrobo, drone matrimonio, cabina fotografica, espejo magico, camara 360, portal boda">
+<meta property="og:title" content="Portal Boda · Cada matrimonio merece su propia película">
+<meta property="og:description" content="Foto, video, drone, postboda en playa, cabina fotográfica y más — todo con un solo proveedor. 10 años en las bodas de Chile.">
+<meta property="og:image" content="img/hero-allison-cristian.jpg">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CL">
+<meta name="theme-color" content="#c14d3c">
+<link rel="icon" type="image/png" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Italiana&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================
+     HEADER / NAVEGACIÓN
+============================================ -->
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="#inicio" class="brand">
+      <span class="brand-mark">PORTAL</span>
+      <span class="brand-mark brand-italic">Boda</span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a href="#packs">Packs</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#postboda">Postboda</a>
+      <a href="#videos">Videos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20cotizar%20mi%20matrimonio" target="_blank" rel="noopener" class="btn-cotizar">Cotizar</a>
+    <button class="menu-toggle" aria-label="Abrir menú" id="menuToggle">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================
+     HERO — VIDEO ALLISON Y CRISTIAN
+============================================ -->
+<section class="hero" id="inicio">
+  <div class="hero-video-wrap">
+    <iframe
+      class="hero-video"
+      src="https://www.youtube.com/embed/wY9XfLIdr48?autoplay=1&mute=1&loop=1&playlist=wY9XfLIdr48&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1"
+      title="Portal Boda — Allison y Cristian"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen></iframe>
+  </div>
+  <div class="hero-fallback" style="background-image: url('img/hero-allison-cristian.jpg');"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="line"></span>
+      <span class="eyebrow-text">Portal Boda · Desde 2015</span>
+      <span class="line"></span>
+    </div>
+    <h1 class="hero-title">
+      <span class="line1">Cada matrimonio</span>
+      <span class="line2"><em>merece</em></span>
+      <span class="line3">su propia película</span>
+    </h1>
+    <p class="hero-sub">Fotografía, video, drone, cabina y postboda en playa.<br>Todo tu día con un solo proveedor.</p>
+    <div class="hero-cta">
+      <a href="#packs" class="btn btn-primary">Ver packs</a>
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20cotizar%20mi%20matrimonio" target="_blank" rel="noopener" class="btn btn-ghost">WhatsApp directo</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>Desliza</span>
+    <span class="scroll-arrow"></span>
+  </div>
+</section>
+
+<!-- ============================================
+     MARQUEE — VALORES DE LA MARCA
+============================================ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Fotografía</span><span class="dot">·</span>
+    <span>Video Profesional</span><span class="dot">·</span>
+    <span>Drone</span><span class="dot">·</span>
+    <span>Postboda en Algarrobo</span><span class="dot">·</span>
+    <span>Cabina Fotográfica</span><span class="dot">·</span>
+    <span>Espejo Mágico</span><span class="dot">·</span>
+    <span>Cámara 360°</span><span class="dot">·</span>
+    <span>Glitter Bar</span><span class="dot">·</span>
+    <span>Zona Gamer Kids</span><span class="dot">·</span>
+    <span>Estudio Fotográfico</span><span class="dot">·</span>
+    <!-- duplicado para loop continuo -->
+    <span>Fotografía</span><span class="dot">·</span>
+    <span>Video Profesional</span><span class="dot">·</span>
+    <span>Drone</span><span class="dot">·</span>
+    <span>Postboda en Algarrobo</span><span class="dot">·</span>
+    <span>Cabina Fotográfica</span><span class="dot">·</span>
+    <span>Espejo Mágico</span><span class="dot">·</span>
+    <span>Cámara 360°</span><span class="dot">·</span>
+    <span>Glitter Bar</span><span class="dot">·</span>
+    <span>Zona Gamer Kids</span><span class="dot">·</span>
+    <span>Estudio Fotográfico</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- ============================================
+     TRUST SIGNALS — CREDIBILIDAD
+============================================ -->
+<section class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <span class="trust-icon">✓</span>
+      <div class="trust-text">
+        <strong>10 años</strong>
+        <span>en las bodas de Chile</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">⭐</span>
+      <div class="trust-text">
+        <strong>+200</strong>
+        <span>matrimonios documentados</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">🎬</span>
+      <div class="trust-text">
+        <strong>1 solo equipo</strong>
+        <span>dirección audiovisual unificada</span>
+      </div>
+    </div>
+    <div class="trust-item">
+      <span class="trust-icon">🏖️</span>
+      <div class="trust-text">
+        <strong>Postboda exclusiva</strong>
+        <span>en playas de Algarrobo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     INTRO EDITORIAL
+============================================ -->
+<section class="intro-editorial">
+  <div class="intro-grid">
+    <div class="intro-text">
+      <div class="section-eyebrow">— Capítulo I —</div>
+      <h2 class="display-title">Una <em>productora</em> dedicada al día más importante de tu vida.</h2>
+      <p class="lead">
+        Portal Boda nació hace una década con una convicción: que tu matrimonio merece la misma dedicación de una película. Bajo la dirección de <strong>Alonso Gómez Einicke</strong>, comunicador audiovisual, hemos documentado más de <strong>10 años de bodas chilenas</strong> con un enfoque editorial, cinematográfico y, sobre todo, humano.
+      </p>
+      <p>
+        Reunimos en un solo equipo todo lo que necesitas para tu día: fotografía completa, video profesional, imágenes aéreas con drone, cabina fotográfica, espejo mágico, cámara 360°, glitter bar, zona gamer para niños, estudio fotográfico móvil y nuestra sesión postboda en las playas de Algarrobo — el cierre perfecto.
+      </p>
+      <div class="intro-stats">
+        <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Años en bodas</span></div>
+        <div class="stat"><span class="stat-num">600-1400</span><span class="stat-label">Fotos por matrimonio</span></div>
+        <div class="stat"><span class="stat-num">1</span><span class="stat-label">Solo proveedor</span></div>
+      </div>
+    </div>
+    <div class="intro-image">
+      <div class="image-frame">
+        <img src="img/postboda-08-editorial.jpg" alt="Retrato editorial postboda" loading="lazy">
+        <div class="image-caption">Allison & Cristian · Algarrobo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PACKS — LOS 4 PACKS PRINCIPALES
+============================================ -->
+<section class="packs-section" id="packs">
+  <div class="urgency-banner">
+    <span class="urgency-icon">⏰</span>
+    <div class="urgency-text">
+      <strong>Solo aceptamos 1 matrimonio por fecha</strong>
+      <span>Verifica disponibilidad ahora — las fechas de 2026 se agotan rápido</span>
+    </div>
+    <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20verificar%20disponibilidad%20de%20mi%20fecha" target="_blank" rel="noopener" class="urgency-btn">Verificar mi fecha</a>
+  </div>
+
+  <div class="section-head">
+    <div class="section-eyebrow">— Capítulo II —</div>
+    <h2 class="display-title">Nuestros <em>Packs</em></h2>
+    <p class="section-sub">Cuatro experiencias diseñadas para tu día. Todas con reserva desde $90.000 y formas de pago flexibles.</p>
+  </div>
+
+  <div class="gift-banner">
+    <span class="gift-icon">🎁</span>
+    <span class="gift-text">Tu regalo a elegir al contratar cualquier Pack:</span>
+    <div class="gift-options">
+      <span class="gift-tag">Fotografía Preboda</span>
+      <span class="gift-tag">Fotografía Civil</span>
+      <span class="gift-tag">Fotografía Postboda</span>
+    </div>
+  </div>
+
+  <div class="packs-grid">
+
+    <!-- PACK FULL -->
+    <article class="pack pack-basic">
+      <div class="pack-header">
+        <span class="pack-label">Pack</span>
+        <h3 class="pack-name">Full</h3>
+        <div class="pack-price">$1.190.000</div>
+        <p class="pack-tagline">Fotografía + Espejo Mágico o 360°</p>
+      </div>
+      <ul class="pack-features">
+        <li>Fotografía de Evento — de preparativos a la fiesta</li>
+        <li>Book Fotográfico Premium 60 págs</li>
+        <li><em>Espejo Mágico</em> o <em>Cabina 360°</em> — elige 1</li>
+        <li class="gift">🎁 Video de la ceremonia de regalo</li>
+        <li class="gift">🎁 Sesión fotográfica Postboda de regalo</li>
+      </ul>
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20consultar%20el%20Pack%20Full%20%28%241.190.000%29" target="_blank" rel="noopener" class="pack-cta">Consultar Pack</a>
+    </article>
+
+    <!-- PACK FULL PRO (POPULAR) -->
+    <article class="pack pack-popular">
+      <div class="pack-badge">POPULAR</div>
+      <div class="pack-header">
+        <span class="pack-label">Pack</span>
+        <h3 class="pack-name">Full Pro</h3>
+        <div class="pack-price">$1.290.000</div>
+        <p class="pack-tagline">Foto o Video + Espejo Mágico + 360°</p>
+      </div>
+      <ul class="pack-features">
+        <li>Fotografía de Evento <em>o</em> Video Profesional</li>
+        <li>Book Fotográfico Premium 60 págs</li>
+        <li><em>Espejo Mágico</em>, <em>Cabina 360°</em>, <em>Glitter Bar</em> o <em>Zona Gamer Kids</em> — elige 1</li>
+        <li class="gift">🎁 Video de la ceremonia de regalo</li>
+        <li class="gift">🎁 Sesión fotográfica Postboda de regalo</li>
+      </ul>
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20consultar%20el%20Pack%20Full%20Pro%20%28%241.290.000%29" target="_blank" rel="noopener" class="pack-cta">Consultar Pack</a>
+    </article>
+
+    <!-- PACK FULL PRO PREMIUM -->
+    <article class="pack pack-premium">
+      <div class="pack-badge premium">PREMIUM</div>
+      <div class="pack-header">
+        <span class="pack-label">Pack</span>
+        <h3 class="pack-name">Full Pro Premium</h3>
+        <div class="pack-price">$1.590.000</div>
+        <p class="pack-tagline">Foto Y Video + Espejo Mágico + 360°</p>
+      </div>
+      <ul class="pack-features">
+        <li>Fotografía de Evento <em>Y</em> Video Profesional</li>
+        <li>Espejo Mágico — 2 horas</li>
+        <li>Cámara 360° — 2 horas</li>
+        <li>Book Fotográfico Premium 60 págs</li>
+        <li><em>Glitter Bar</em> o <em>Zona Gamer Kids</em> — elige 1</li>
+        <li class="gift">🎁 Video de la ceremonia de regalo</li>
+        <li class="gift">🎁 Sesión foto y video Postboda de regalo</li>
+      </ul>
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20consultar%20el%20Pack%20Full%20Pro%20Premium%20%28%241.590.000%29" target="_blank" rel="noopener" class="pack-cta">Consultar Pack</a>
+    </article>
+
+    <!-- PACK FULL PRO PREMIUM VIP -->
+    <article class="pack pack-vip">
+      <div class="pack-badge vip">VIP</div>
+      <div class="pack-header">
+        <span class="pack-label">Pack</span>
+        <h3 class="pack-name">Full Pro Premium VIP</h3>
+        <div class="pack-price price-consult">Consultar</div>
+        <p class="pack-tagline">Todo incluido — experiencia completa</p>
+      </div>
+      <ul class="pack-features">
+        <li>Fotografía de Evento Y Video Profesional</li>
+        <li><em>Espejo Mágico</em> o <em>Cámara 360°</em> — elige 1</li>
+        <li><em>Glitter Bar</em> o <em>Zona Gamer Kids</em> — elige 1</li>
+        <li>Book Fotográfico Premium 60 págs</li>
+        <li class="gift">🎁 Video de la ceremonia de regalo</li>
+        <li class="gift">🎁 Sesión foto y video Postboda de regalo</li>
+      </ul>
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20consultar%20el%20Pack%20Full%20Pro%20Premium%20VIP" target="_blank" rel="noopener" class="pack-cta">Consultar Pack</a>
+    </article>
+
+  </div>
+
+  <div class="packs-footer">
+    <p>💳 <strong>1 a 3 cuotas sin intereses</strong>, o más cuotas con intereses y comisión.</p>
+    <p>✨ <strong>Descuentos especiales</strong> en Zona Gamer Kids, Glitter Bar y Estudio Fotográfico al combinar con tu pack.</p>
+  </div>
+</section>
+
+<!-- ============================================
+     POSTBODA — SECCIÓN ESTRELLA
+============================================ -->
+<section class="postboda-section" id="postboda">
+  <div class="postboda-hero">
+    <img src="img/postboda-09-brazos.jpg" alt="Postboda en Algarrobo — brazos abiertos al sol" class="postboda-bg" loading="lazy">
+    <div class="postboda-hero-content">
+      <div class="section-eyebrow light">— Capítulo III · Nuestro sello —</div>
+      <h2 class="display-title light">Postboda en <em>Algarrobo</em></h2>
+      <p class="postboda-tagline">Una experiencia sin igual</p>
+    </div>
+  </div>
+
+  <div class="postboda-body">
+    <div class="postboda-text">
+      <p class="lead">
+        Ya dijiste el sí. Ahora viene <em>tu</em> momento.
+      </p>
+      <p>
+        La Sesión Postboda es nuestro cierre con broche de oro: te ponemos el vestido y el traje una última vez, te llevamos a las playas de Algarrobo y capturamos esa boda junto al mar que siempre soñaste, esta vez sin el reloj de la ceremonia, sin nervios, sin invitados — solo ustedes y el sol cayendo sobre el Pacífico.
+      </p>
+      <p>
+        <strong>Incluida en todos nuestros packs.</strong> Realizada en Algarrobo y alrededores cercanos del litoral central. Para sesiones en otras zonas de Chile, consulta presupuesto.
+      </p>
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20agendar%20mi%20Postboda%20en%20Algarrobo" target="_blank" rel="noopener" class="btn btn-primary">Agendar mi Postboda</a>
+    </div>
+
+    <div class="postboda-gallery">
+      <figure class="pb-img pb-1"><img src="img/hero-allison-cristian.jpg" alt="Allison y Cristian — beso bajo el velo" loading="lazy"></figure>
+      <figure class="pb-img pb-2"><img src="img/postboda-01.jpg" alt="Postboda velo flotante" loading="lazy"></figure>
+      <figure class="pb-img pb-3"><img src="img/postboda-02.jpg" alt="Postboda roca al mar" loading="lazy"></figure>
+      <figure class="pb-img pb-4"><img src="img/postboda-03-bn.jpg" alt="Postboda blanco y negro — argollas" loading="lazy"></figure>
+      <figure class="pb-img pb-5"><img src="img/postboda-06-cargada.jpg" alt="Novia cargada en el agua" loading="lazy"></figure>
+      <figure class="pb-img pb-6"><img src="img/postboda-10-baile.jpg" alt="Baile en la arena al atardecer" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SERVICIOS — GRID COMPLETO
+============================================ -->
+<section class="servicios-section" id="servicios">
+  <div class="section-head">
+    <div class="section-eyebrow">— Capítulo IV —</div>
+    <h2 class="display-title">Nuestros <em>Servicios</em></h2>
+    <p class="section-sub">Cada elemento que necesita tu matrimonio, bajo el mismo equipo y la misma dirección audiovisual.</p>
+  </div>
+
+  <div class="servicios-grid">
+
+    <article class="servicio-card servicio-large">
+      <div class="servicio-img">
+        <img src="img/postboda-04.jpg" alt="Fotografía de matrimonio" loading="lazy">
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">01</span>
+        <h3>Fotografía Profesional</h3>
+        <p>Desde la casa de la novia hasta el último brindis. Entre <strong>600 y 1.400 fotografías</strong> trabajadas en color, contraste y brillo. Entrega vía WeTransfer.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card">
+      <div class="servicio-img">
+        <img src="img/postboda-11.jpg" alt="Video profesional" loading="lazy">
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">02</span>
+        <h3>Video Profesional</h3>
+        <p>Grabación a 2 cámaras de ceremonia, mensajes de invitados, vals y resumen cinematográfico.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card">
+      <div class="servicio-img">
+        <img src="img/drone-vinedo.jpg" alt="Imágenes aéreas con drone" loading="lazy">
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">03</span>
+        <h3>Drone</h3>
+        <p>Imágenes aéreas grupales y panorámicas que entregan un toque cinematográfico a tu día.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card">
+      <div class="servicio-img">
+        <img src="img/cabina-blanca-flores.webp" alt="Cabina fotográfica inflable" loading="lazy">
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">04</span>
+        <h3>Cabina Fotográfica</h3>
+        <p>Inflable blanca o negra. 2 horas, fotos impresas al instante, cotillón entretenido y libro recopilatorio incluido.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card placeholder">
+      <div class="servicio-img servicio-img-icon">
+        <div class="icon-circle">🪞</div>
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">05</span>
+        <h3>Espejo Mágico</h3>
+        <p>Espejo interactivo con fotos impresas al instante, branding personalizado, cotillón y libro recuerdo. 2 horas.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card placeholder">
+      <div class="servicio-img servicio-img-icon">
+        <div class="icon-circle">🎥</div>
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">06</span>
+        <h3>Cámara 360°</h3>
+        <p>Videos 360° musicalizados con descarga inmediata al celular del invitado. Iluminación LED + alfombra roja. 2 horas.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card">
+      <div class="servicio-img">
+        <img src="img/estudio-01.jpg" alt="Estudio fotográfico móvil" loading="lazy">
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">07</span>
+        <h3>Estudio Fotográfico Móvil</h3>
+        <p>Set profesional con iluminación, fondo seamless, alfombra roja e impresora Hiti. Fotos digitales con o sin impresión.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card placeholder">
+      <div class="servicio-img servicio-img-icon">
+        <div class="icon-circle">✨</div>
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">08</span>
+        <h3>Glitter Bar</h3>
+        <p>Estación de maquillaje con brillos y glitter para que tus invitados se vayan brillando de la fiesta.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card placeholder">
+      <div class="servicio-img servicio-img-icon">
+        <div class="icon-circle">🎮</div>
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">09</span>
+        <h3>Zona Gamer Kids</h3>
+        <p>Espacio dedicado para entretener a los niños invitados con videojuegos durante toda la fiesta.</p>
+      </div>
+    </article>
+
+    <article class="servicio-card">
+      <div class="servicio-img">
+        <img src="img/cabina-libro.webp" alt="Book fotográfico Premium" loading="lazy">
+      </div>
+      <div class="servicio-content">
+        <span class="servicio-num">10</span>
+        <h3>Book Fotográfico Premium</h3>
+        <p>Álbum tipo revista, 60 páginas de papel couché, tapa premium personalizada. Incluido en todos los packs.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================================
+     VIDEOS DE MUESTRA — 7 EMBEDS
+============================================ -->
+<section class="videos-section" id="videos">
+  <div class="section-head dark">
+    <div class="section-eyebrow light">— Capítulo V —</div>
+    <h2 class="display-title light">Nuestras <em>Películas</em></h2>
+    <p class="section-sub light">Mira algunas de las historias que hemos contado. Cada matrimonio es único, y cada video también.</p>
+  </div>
+
+  <div class="videos-grid">
+
+    <article class="video-card video-featured">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/wY9XfLIdr48" title="Reel Allison y Cristian" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Reel · 2:58</span>
+        <h3>Allison & Cristian</h3>
+      </div>
+    </article>
+
+    <article class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/YZv_pfkPkYw" title="Resumen Cynthia y Jesús" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Resumen · 5:28</span>
+        <h3>Cynthia & Jesús</h3>
+      </div>
+    </article>
+
+    <article class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/v3LlTTl3_yE" title="Resumen Ceremonia Valentina y Javier" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Ceremonia · 7:46</span>
+        <h3>Valentina & Javier</h3>
+      </div>
+    </article>
+
+    <article class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/Etmg8VcSYeM" title="Reel Lorena y Carlos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Reel · 6:01</span>
+        <h3>Lorena & Carlos</h3>
+      </div>
+    </article>
+
+    <article class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/IEZRCkvNWos" title="Reel María José y Mauricio" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Reel · 1:15</span>
+        <h3>Mª José & Mauricio</h3>
+      </div>
+    </article>
+
+    <article class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/mKhucWC0OMQ" title="Resumen Pro Jenny y Diego" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Resumen Pro · 10:05</span>
+        <h3>Jenny & Diego</h3>
+      </div>
+    </article>
+
+    <article class="video-card">
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/SZlviAaAcMU" title="Save The Date" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-info">
+        <span class="video-tag">Save The Date · 0:58</span>
+        <h3>Presentación</h3>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================================
+     GALERÍA — MOSAICO EDITORIAL
+============================================ -->
+<section class="galeria-section" id="galeria">
+  <div class="section-head">
+    <div class="section-eyebrow">— Capítulo VI —</div>
+    <h2 class="display-title">Galería <em>Editorial</em></h2>
+    <p class="section-sub">Una selección de nuestros matrimonios documentados.</p>
+  </div>
+
+  <div class="mosaic">
+    <figure class="m m1"><img src="img/postboda-06-cargada.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m2"><img src="img/postboda-04.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m3"><img src="img/postboda-05.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m4"><img src="img/postboda-07.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m5"><img src="img/postboda-10-baile.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m6"><img src="img/postboda-11.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m7"><img src="img/vinedo-01.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m8"><img src="img/drone-vinedo.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m9"><img src="img/vinedo-02.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m10"><img src="img/postboda-02.jpg" alt="" loading="lazy"></figure>
+    <figure class="m m11"><img src="img/cabina-negra.webp" alt="" loading="lazy"></figure>
+    <figure class="m m12"><img src="img/postboda-03-bn.jpg" alt="" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- ============================================
+     RESERVA Y PAGO
+============================================ -->
+<section class="reserva-section" id="reserva">
+  <div class="reserva-grid">
+    <div class="reserva-text">
+      <div class="section-eyebrow">— Capítulo VII —</div>
+      <h2 class="display-title">Reserva tu <em>fecha</em></h2>
+      <p class="lead">Asegurar tu día es simple. Reserva con $90.000 y conversamos las formas de pago que mejor se ajusten a ti.</p>
+
+      <div class="payment-options">
+        <div class="payment-card">
+          <div class="payment-icon">💳</div>
+          <h4>Tarjeta de crédito o débito</h4>
+          <p>1 a 3 cuotas <strong>sin intereses</strong>. Más cuotas con intereses y comisión.</p>
+        </div>
+        <div class="payment-card">
+          <div class="payment-icon">🏦</div>
+          <h4>Transferencia bancaria</h4>
+          <p>50% de reserva + 50% a la entrega final (aprox. 30 días hábiles).</p>
+        </div>
+      </div>
+
+      <div class="reserva-notes">
+        <p><strong>Política de cambios:</strong> Hasta 3 cambios de fecha dentro del mismo año, sujetos a disponibilidad. La reserva no es reembolsable después de la reunión inicial, pero se traspasa al book grande.</p>
+        <p><strong>Fuera de Algarrobo:</strong> Mismos valores + alojamiento, comida, peajes y bencina por presupuestar.</p>
+      </div>
+
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20reservar%20mi%20fecha" target="_blank" rel="noopener" class="btn btn-primary btn-large">Reservar por WhatsApp</a>
+    </div>
+
+    <aside class="entrega-aside">
+      <div class="aside-eyebrow">📦 Importante</div>
+      <h3>Sobre la entrega y resguardo de tu material</h3>
+      <p>Tras la entrega final, recibirás todas tus fotografías y videos a través de <strong>WeTransfer</strong> o <strong>Google Drive</strong>.</p>
+      <p>Portal Boda <strong>no es un servicio de almacenamiento</strong> en la nube. Estos medios son únicamente nuestro método de entrega y los enlaces tienen vigencia limitada.</p>
+      <p>Una vez recibido el enlace, <strong>cada matrimonio es responsable de descargar y resguardar su material</strong> en sus propios dispositivos. Te recomendamos hacer al menos <strong>dos copias de seguridad</strong> en lugares distintos.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACTO / FOOTER
+============================================ -->
+<footer class="footer" id="contacto">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="img/logo.png" alt="Portal Boda" class="footer-logo">
+      <p class="footer-tagline">"Cada matrimonio merece su propia película."</p>
+      <p class="footer-small">Portal Boda SPA · Dirección Audiovisual: Alonso Gómez Einicke<br>10 años con las bodas de Chile</p>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Conversemos</h4>
+      <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-ico">📱</span>
+        <span>
+          <strong>WhatsApp</strong>
+          <em>+56 9 5418 9795</em>
+        </span>
+      </a>
+      <a href="mailto:portalboda@gmail.com" class="contact-link">
+        <span class="contact-ico">✉</span>
+        <span>
+          <strong>Email</strong>
+          <em>portalboda@gmail.com</em>
+        </span>
+      </a>
+      <a href="https://instagram.com/portalboda" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-ico">◉</span>
+        <span>
+          <strong>Instagram</strong>
+          <em>@portalboda</em>
+        </span>
+      </a>
+      <a href="https://facebook.com/portalboda" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-ico">f</span>
+        <span>
+          <strong>Facebook</strong>
+          <em>/portalboda</em>
+        </span>
+      </a>
+    </div>
+
+    <div class="footer-area">
+      <h4>Cobertura</h4>
+      <p><strong>Litoral Central</strong><br>Algarrobo · El Quisco · Isla Negra<br>Mirasol · El Tabo · Las Cruces</p>
+      <p><strong>Resto de Chile</strong><br>Disponible bajo presupuesto adicional (alojamiento, traslados y viáticos)</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Portal Boda SPA · Todos los derechos reservados</p>
+    <p>Sitio diseñado con dedicación cinematográfica</p>
+  </div>
+</footer>
+
+<!-- ============================================
+     BOTÓN FLOTANTE WHATSAPP
+============================================ -->
+<a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20cotizar%20mi%20matrimonio" target="_blank" rel="noopener" class="wa-float" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ============================================
+     CHATBOT — PORTAL BODA
+============================================ -->
+<div id="chatbot-root">
+  <button id="chatbot-toggle" aria-label="Abrir chat" class="chatbot-toggle">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <span class="chat-pulse"></span>
+  </button>
+
+  <div id="chatbot-window" class="chatbot-window" role="dialog" aria-label="Asistente Portal Boda">
+    <header class="chat-header">
+      <div class="chat-avatar">
+        <img src="img/logo.png" alt="Portal Boda">
+      </div>
+      <div class="chat-titles">
+        <strong>Asistente Portal Boda</strong>
+        <span><span class="online-dot"></span> En línea</span>
+      </div>
+      <button id="chatbot-close" aria-label="Cerrar chat">✕</button>
+    </header>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="chat-quick" id="chatQuick">
+      <button data-intent="packs">Ver Packs</button>
+      <button data-intent="postboda">Postboda</button>
+      <button data-intent="reserva">Reserva</button>
+      <button data-intent="cobertura">Cobertura</button>
+      <button data-intent="entrega">Entrega</button>
+      <button data-intent="contacto">Contacto</button>
+    </div>
+
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Escribe tu pregunta…" autocomplete="off">
+      <button id="chatSend" aria-label="Enviar">→</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
