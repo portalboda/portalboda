@@ -91,8 +91,8 @@
     knowledge: {
       about: {
         experiencia: '+300 matrimonios en 10 años',
-        equipo: 'Equipo profesional liderado por Alonso Gómez Einicke',
-        cobertura: 'Santiago, Valparaíso, O\'Higgins y resto de Chile',
+        equipo: 'Equipo profesional especializado en matrimonios',
+        cobertura: 'Santiago y alrededores, Valparaíso (Algarrobo, El Quisco, Las Cruces), O\'Higgins (Rancagua, San Francisco de Mostazal). Buin y Camino Lonquén son considerados dentro de Santiago.',
         horario: 'Servicios hasta las 2:00 AM',
         entrega: '30-40 días hábiles aproximadamente'
       },
@@ -231,10 +231,16 @@
           monto: 90000,
           descripcion: 'Reserva única para todos los servicios',
           nota: 'Vale $90.000 sea un servicio solo o un pack completo',
+          link_mercadopago: 'https://mpago.li/2vfXQyT',
+          comision_mp: 2459,
+          cuotas_mp: '3 cuotas sin interés',
           formas_pago: [
-            'Tarjeta de crédito/débito (1-3 cuotas sin interés)',
-            'Transferencia bancaria (50% reserva + 50% saldo)'
-          ]
+            'MercadoPago: Tarjeta crédito/débito (comisión $2.459, hasta 3 cuotas sin interés)',
+            'Transferencia bancaria: $90.000 reserva, luego 50% un mes antes + 50% día del matrimonio por la mañana'
+          ],
+          proceso_transferencia: 'Reserva $90.000 → 50% un mes antes del matrimonio → 50% hasta el mismo día del matrimonio por la mañana (no después por respeto a los novios y trabajadores)',
+          despues_reserva: 'Videollamada de 1.5 hrs aprox para analizar estructura y horarios del matrimonio',
+          contrato: 'Realizamos contrato si así lo requieren'
         },
         
         hora_extra: {
@@ -242,6 +248,19 @@
           condicion: 'Por servicio, por hora',
           pago: 'Se debe pagar en el momento',
           nota: 'Después de las 2:00 AM'
+        },
+        
+        book_premium: {
+          precio: 129000,
+          descripcion: 'Book fotográfico premium (diferente al librito del espejo mágico)',
+          nota: 'Puede crearse aparte fuera del pack'
+        },
+        
+        fuera_santiago: {
+          descripcion: 'Fuera de Santiago: mismos valores + alojamiento, comida, peajes, tags, bencina por presupuestar',
+          cobertura_principal: 'Comunas de Santiago (incluye Buin y Camino Lonquén)',
+          quinta_region: 'Algarrobo, El Quisco, Las Cruces',
+          ohiggins: 'Rancagua, San Francisco de Mostazal y alrededores'
         },
         
         descuentos: {
@@ -828,16 +847,22 @@
       setTimeout(() => {
         this.addBotMessage(
           `✅ ¡EXCELENTE NOTICIA!\n\n` +
-          `La fecha ${this.lead.weddingDate} AÚN está disponible.\n\n` +
-          `Pero te soy sincero: ${this.knowledge.urgencia[1]}\n\n` +
-          `El que reserva PRIMERO, se queda con la fecha.\n\n` +
-          `La reserva es de $90.000 (sea un servicio o varios) y tu fecha queda 100% asegurada.\n\n` +
-          `¿Quieres que te envíe el link de pago para asegurar tu fecha AHORA?`
+          `La fecha ${this.lead.weddingDate} aparece disponible en nuestro sistema.\n\n` +
+          `⚠️ IMPORTANTE: ${this.knowledge.urgencia[1]}\n\n` +
+          `El que reserva PRIMERO (y confirma el pago), se queda con la fecha.\n\n` +
+          `📱 **Para confirmar disponibilidad 100% y reservar:**\n\n` +
+          `Escríbenos por WhatsApp al **+56 9 4066 2286** indicando:\n` +
+          `• Tu nombre: ${this.lead.name}\n` +
+          `• Fecha: ${this.lead.weddingDate}\n` +
+          `• Servicios de interés\n\n` +
+          `Te confirmamos al instante si está libre y te damos el OK para pagar.\n\n` +
+          `💰 La reserva es de $90.000 (sea un servicio o varios)\n\n` +
+          `¿Quieres que te explique las opciones de pago ahora?`
         );
         
         this.quick.innerHTML = `
-          <button onclick="salesBot.sendPaymentLink()">Sí, enviar link de pago</button>
-          <button onclick="salesBot.askMoreQuestions()">Tengo algunas dudas antes</button>
+          <button onclick="salesBot.sendPaymentLink()">Sí, opciones de pago</button>
+          <button onclick="salesBot.askMoreQuestions()">Tengo dudas antes</button>
         `;
         this.quick.style.display = 'flex';
         
@@ -848,38 +873,139 @@
     sendPaymentLink() {
       this.addBotMessage(
         `🎉 ¡EXCELENTE DECISIÓN, ${this.lead.name}!\n\n` +
-        `Estás a UN PASO de asegurar los mejores profesionales para tu matrimonio.\n\n` +
-        `Te envío el link de pago por WhatsApp al ${this.lead.whatsapp} en este momento.\n\n` +
-        `💰 Reserva: $90.000\n\n` +
-        `💳 Puedes pagar con:\n` +
-        `• Tarjeta (1-3 cuotas sin interés)\n` +
-        `• Transferencia (50% ahora + 50% después)\n\n` +
-        `Una vez que completes el pago, tu fecha ${this.lead.weddingDate} queda 100% BLOQUEADA.\n\n` +
-        `¿Confirmo el envío del link?`
+        `⚠️ **PASO IMPORTANTE ANTES DE PAGAR:**\n\n` +
+        `📱 Debes contactarnos por WhatsApp al **+56 9 4066 2286** ANTES de realizar la reserva.\n\n` +
+        `📋 Al escribirnos, indica:\n` +
+        `1️⃣ Tu nombre: ${this.lead.name}\n` +
+        `2️⃣ Fecha que quieres reservar: ${this.lead.weddingDate}\n` +
+        `3️⃣ Servicios de interés\n\n` +
+        `✅ Confirmamos disponibilidad\n` +
+        `✅ Te damos el OK para pagar\n` +
+        `✅ Una vez que pagues, envías el voucher por el mismo WhatsApp\n\n` +
+        `💰 **RESERVA: $90.000**\n\n` +
+        `Tienes 2 opciones de pago:\n\n` +
+        `**OPCIÓN 1: MercadoPago** 💳\n` +
+        `✓ Pago inmediato con tarjeta\n` +
+        `✓ Hasta 3 cuotas sin interés\n` +
+        `✗ Comisión de $2.459 (la cobra MercadoPago)\n` +
+        `Total: $92.459\n\n` +
+        `**OPCIÓN 2: Transferencia Bancaria** 🏦\n` +
+        `✓ Sin comisiones\n` +
+        `✓ Pago: $90.000 reserva → 50% un mes antes → 50% día del matrimonio por la mañana\n` +
+        `Total: $90.000\n\n` +
+        `¿Cuál prefieres? (Recuerda: primero escríbenos al +56 9 4066 2286)`
       );
       
       this.quick.innerHTML = `
-        <button onclick="salesBot.confirmPaymentSend()">Sí, envíalo ahora</button>
+        <button onclick="salesBot.sendMercadoPagoLink()">💳 MercadoPago ($92.459)</button>
+        <button onclick="salesBot.sendTransferenciaInfo()">🏦 Transferencia ($90.000)</button>
       `;
       this.quick.style.display = 'flex';
     },
     
-    confirmPaymentSend() {
+    sendMercadoPagoLink() {
+      const mpLink = this.knowledge.precios.reserva.link_mercadopago;
+      
       this.addBotMessage(
-        `✅ ¡LISTO!\n\n` +
-        `Link de pago enviado a tu WhatsApp: ${this.lead.whatsapp}\n\n` +
-        `También te envié un email a ${this.lead.email} con:\n` +
-        `• Resumen de servicios\n` +
-        `• Link de pago\n` +
-        `• Próximos pasos\n\n` +
-        `Una vez que completes el pago, nos contactamos de inmediato para agendar nuestra primera reunión y planificar todo juntos.\n\n` +
-        `¡Felicitaciones por dar este paso! Tu matrimonio va a ser INCREÍBLE 🎉💍\n\n` +
-        `Cualquier duda, estoy aquí para ayudarte 😊`
+        `✅ Perfecto, ${this.lead.name}!\n\n` +
+        `Te envío el link de MercadoPago por WhatsApp al ${this.lead.whatsapp}\n\n` +
+        `💳 **Link de pago:** ${mpLink}\n\n` +
+        `💰 Total: $92.459 (incluye comisión MercadoPago)\n` +
+        `✓ Hasta 3 cuotas sin interés\n\n` +
+        `Una vez que completes el pago, tu fecha ${this.lead.weddingDate} queda 100% BLOQUEADA.\n\n` +
+        `📅 **Siguiente paso:** Agendamos videollamada de 1.5 hrs para analizar toda la estructura y horarios de tu matrimonio.\n\n` +
+        `¿Confirmas que procedemos con MercadoPago?`
       );
       
-      this.lead.stage = 'converted';
+      this.quick.innerHTML = `
+        <button onclick="salesBot.confirmMercadoPago()">Sí, enviar link MercadoPago</button>
+        <button onclick="salesBot.sendTransferenciaInfo()">Cambiar a Transferencia</button>
+      `;
+      this.quick.style.display = 'flex';
+    },
+    
+    confirmMercadoPago() {
+      const mpLink = this.knowledge.precios.reserva.link_mercadopago;
+      
+      this.addBotMessage(
+        `✅ ¡PERFECTO!\n\n` +
+        `🔗 **Link de MercadoPago:** ${mpLink}\n\n` +
+        `📱 **RECORDATORIO IMPORTANTE:**\n\n` +
+        `1️⃣ **PRIMERO:** Escribe al WhatsApp **+56 9 4066 2286**\n` +
+        `   Mensaje: "Hola, soy ${this.lead.name} y quiero reservar para ${this.lead.weddingDate}"\n\n` +
+        `2️⃣ **ESPERAMOS:** Confirmación de disponibilidad\n\n` +
+        `3️⃣ **PAGAS:** Con el link ${mpLink}\n\n` +
+        `4️⃣ **ENVÍAS:** El voucher/comprobante por WhatsApp al +56 9 4066 2286\n\n` +
+        `💰 Total: $92.459 (incluye comisión MercadoPago)\n` +
+        `✓ Hasta 3 cuotas sin interés\n\n` +
+        `📅 **Después del pago confirmado:** Agendamos videollamada de 1.5 hrs para planificar TODO.\n\n` +
+        `📄 Realizamos contrato si así lo requieren.\n\n` +
+        `¡Tu matrimonio va a ser INCREÍBLE! 🎉💍`
+      );
+      
+      this.lead.stage = 'pending_contact';
+      this.lead.payment_method = 'mercadopago';
       this.saveLead();
-      console.log('🎯 CONVERSIÓN LOGRADA:', this.lead);
+      console.log('🎯 LEAD CALIENTE - ESPERANDO CONTACTO WHATSAPP:', this.lead);
+      this.quick.style.display = 'none';
+    },
+    
+    sendTransferenciaInfo() {
+      this.addBotMessage(
+        `✅ Perfecto, ${this.lead.name}! Transferencia bancaria es una excelente opción.\n\n` +
+        `💰 **SIN comisiones** - Pagas exactamente $90.000\n\n` +
+        `📱 **PARA OBTENER LOS DATOS BANCARIOS:**\n\n` +
+        `Debes escribir al WhatsApp **+56 9 4066 2286** indicando:\n\n` +
+        `• Tu nombre: ${this.lead.name}\n` +
+        `• Fecha que quieres reservar: ${this.lead.weddingDate}\n` +
+        `• Que prefieres pagar por transferencia\n\n` +
+        `Te enviaremos:\n` +
+        `✓ Datos bancarios completos\n` +
+        `✓ Confirmación de disponibilidad\n` +
+        `✓ Instrucciones de pago\n\n` +
+        `💳 **Plan de pagos:**\n` +
+        `1️⃣ Ahora: $90.000 (reserva)\n` +
+        `2️⃣ Un mes antes: 50% del saldo\n` +
+        `3️⃣ Día del matrimonio (mañana): 50% restante\n\n` +
+        `⚠️ **IMPORTANTE:** El pago final debe ser hasta la mañana del matrimonio por respeto a los novios y trabajadores de Portal Boda.\n\n` +
+        `📸 Una vez que hagas la transferencia, envías el comprobante por el mismo WhatsApp indicando la fecha ${this.lead.weddingDate}\n\n` +
+        `📅 **Después del pago confirmado:** Agendamos videollamada de 1.5 hrs para planificar TODO.\n\n` +
+        `📄 Realizamos contrato si así lo requieren.\n\n` +
+        `¿Procedemos? Escribe al WhatsApp +56 9 4066 2286 ahora.`
+      );
+      
+      this.quick.innerHTML = `
+        <button onclick="salesBot.confirmTransferencia()">Entendido, contactaré por WhatsApp</button>
+        <button onclick="salesBot.sendMercadoPagoLink()">Cambiar a MercadoPago</button>
+      `;
+      this.quick.style.display = 'flex';
+    },
+    
+    confirmTransferencia() {
+      this.addBotMessage(
+        `✅ ¡PERFECTO!\n\n` +
+        `📱 **SIGUIENTE PASO:**\n\n` +
+        `Escribe al WhatsApp **+56 9 4066 2286** ahora mismo:\n\n` +
+        `📝 Mensaje sugerido:\n` +
+        `"Hola, soy ${this.lead.name}. Quiero reservar para ${this.lead.weddingDate} y prefiero pagar por transferencia. ¿Me pueden enviar los datos bancarios?"\n\n` +
+        `Te responderemos con:\n` +
+        `✓ Datos bancarios completos\n` +
+        `✓ Confirmación de disponibilidad de tu fecha\n` +
+        `✓ Instrucciones detalladas\n\n` +
+        `📸 Después de transferir, envías el comprobante por el mismo WhatsApp indicando la fecha ${this.lead.weddingDate}\n\n` +
+        `💳 **Recordatorio del plan de pagos:**\n` +
+        `• Reserva: $90.000\n` +
+        `• Un mes antes: 50% del saldo\n` +
+        `• Día del matrimonio (mañana): 50% restante\n\n` +
+        `📅 **Después del pago confirmado:** Videollamada de 1.5 hrs para planificar TODO.\n\n` +
+        `📄 Realizamos contrato si así lo requieren.\n\n` +
+        `¡Tu matrimonio va a ser INCREÍBLE! 🎉💍`
+      );
+      
+      this.lead.stage = 'pending_contact';
+      this.lead.payment_method = 'transferencia';
+      this.saveLead();
+      console.log('🎯 LEAD CALIENTE - DEBE CONTACTAR WHATSAPP PARA DATOS:', this.lead);
       this.quick.style.display = 'none';
     },
     
