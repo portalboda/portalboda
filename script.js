@@ -290,6 +290,147 @@
     },
     
     // ============================================
+    // DETECCIÓN INTELIGENTE - CHATBOT ÁGIL
+    // ============================================
+    
+    detectIntentAndData(text) {
+      const textLower = text.toLowerCase();
+      const intent = {
+        action: null,
+        fecha: null,
+        invitados: null,
+        servicio: null,
+        hasWhatsApp: false,
+        hasEmail: false
+      };
+      
+      // Detectar acción principal
+      if (/reservar|agendar|contratar|quiero|necesito.*para/.test(textLower)) {
+        intent.action = 'reservar';
+      } else if (/cuánto|cuanto|precio|costo|cotizar|vale|cobran/.test(textLower)) {
+        intent.action = 'cotizar';
+      }
+      
+      // Detectar fecha (múltiples formatos)
+      const fechaPatterns = [
+        /(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{2,4})/,  // 15/12/2026
+        /(enero|febrero|marzo|abril|mayo|junio|julio|agosto|sep[tiembre]*|oct[ubre]*|nov[iembre]*|dic[iembre]*)\s*(de\s*)?(\d{4})/i,  // marzo 2027
+        /(enero|febrero|marzo|abril|mayo|junio|julio|agosto|sep[tiembre]*|oct[ubre]*|nov[iembre]*|dic[iembre]*)/i,  // marzo
+        /(2026|2027|2028)/  // solo año
+      ];
+      
+      for (let pattern of fechaPatterns) {
+        const match = text.match(pattern);
+        if (match) {
+          intent.fecha = match[0];
+          break;
+        }
+      }
+      
+      // Detectar número de invitados
+      const invitadosMatch = text.match(/(\d+)\s*(personas|invitados|gente|pax)/i);
+      if (invitadosMatch) {
+        intent.invitados = invitadosMatch[1];
+      }
+      
+      // Detectar servicio específico
+      if (/foto|fotógrafo|fotografía/.test(textLower)) intent.servicio = 'fotografia';
+      if (/video/.test(textLower)) intent.servicio = 'video';
+      if (/postboda|post boda/.test(textLower)) intent.servicio = 'postboda';
+      if (/pack|paquete|todo|completo/.test(textLower)) intent.servicio = 'pack';
+      if (/espejo/.test(textLower)) intent.servicio = 'espejo';
+      if (/cabina/.test(textLower)) intent.servicio = 'cabina';
+      
+      // Detectar WhatsApp
+      if (/\+?56\s*9\s*\d{8}|9\d{8}/.test(text)) {
+        intent.hasWhatsApp = true;
+      }
+      
+      // Detectar Email
+      if (/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/.test(text)) {
+        intent.hasEmail = true;
+      }
+      
+      return intent;
+    },
+    
+    // Flujo rápido cuando detecta intención clara
+    fastTrack(intent, originalText) {
+      // CASO 1: Quiere reservar + tiene fecha
+      if (intent.action === 'reservar' && intent.fecha) {
+        this.lead.weddingDate = intent.fecha;
+        if (intent.invitados) this.lead.guestCount = intent.invitados;
+        
+        // Si ya tiene WhatsApp en el mensaje
+        if (intent.hasWhatsApp) {
+          const whatsappMatch = originalText.match(/(\+?56\s*9\s*\d{8}|9\d{8})/);
+          if (whatsappMatch) {
+            const cleaned = whatsappMatch[0].replace(/\s/g, '').replace(/\+/g, '');
+            this.lead.whatsapp = cleaned.startsWith('56') ? '+' + cleaned : '+56' + cleaned;
+            
+            // Pedir solo email y cerrar
+            this.addBotMessage(
+              `¡Perfecto! Quieres reservar para ${intent.fecha}. Solo necesito tu email para confirmarte todo.`
+            );
+            this.lead.stage = 'captura';
+            this.lead.waitingFor = 'email';
+            this.lead.temperature = 'hot';
+            return true;
+          }
+        }
+        
+        // Pedir WhatsApp rápido
+        this.addBotMessage(
+          `¡Excelente! Quieres reservar para ${intent.fecha} 🎉\n\n` +
+          `Para confirmarte disponibilidad al instante, dame tu WhatsApp (Ej: +56912345678)`
+        );
+        this.lead.stage = 'captura';
+        this.lead.waitingFor = 'whatsapp';
+        this.lead.temperature = 'hot';
+        return true;
+      }
+      
+      // CASO 2: Quiere cotizar servicio específico
+      if (intent.action === 'cotizar' && intent.servicio) {
+        this.addBotMessage(
+          `¡Claro! Te cuento sobre ${this.getServiceName(intent.servicio)}.\n\n` +
+          `Para darte una cotización personalizada, necesito tu nombre y WhatsApp.`
+        );
+        this.lead.interests.push(intent.servicio);
+        this.lead.stage = 'captura';
+        this.lead.waitingFor = 'name';
+        this.lead.temperature = 'warm';
+        return true;
+      }
+      
+      // CASO 3: Solo tiene fecha (sin acción clara)
+      if (intent.fecha) {
+        this.lead.weddingDate = intent.fecha;
+        this.addBotMessage(
+          `Perfecto, para ${intent.fecha}. ¿Cuál es tu nombre?`
+        );
+        this.lead.stage = 'captura';
+        this.lead.waitingFor = 'name';
+        this.lead.temperature = 'warm';
+        return true;
+      }
+      
+      return false;  // No se detectó intención clara, seguir flujo normal
+    },
+    
+    getServiceName(service) {
+      const names = {
+        'fotografia': 'Fotografía de Matrimonio',
+        'video': 'Video Profesional con Drone',
+        'postboda': 'Postboda en Algarrobo',
+        'pack': 'nuestros Packs personalizados',
+        'espejo': 'Espejo Mágico',
+        'cabina': 'Cabina Fotográfica'
+      };
+      return names[service] || 'nuestros servicios';
+    },
+    
+    // ============================================
     // INICIALIZACIÓN
     // ============================================
     
@@ -356,6 +497,17 @@
     
     processUserMessage(text) {
       const textLower = text.toLowerCase();
+      
+      // DETECCIÓN INTELIGENTE en el primer mensaje real
+      if (this.lead.messagesCount === 1 && this.lead.stage === 'captura' && this.lead.waitingFor === 'name') {
+        const intent = this.detectIntentAndData(text);
+        const fastTracked = this.fastTrack(intent, text);
+        
+        if (fastTracked) {
+          return;  // Ya manejado por fastTrack
+        }
+        // Si no se detectó intención clara, continuar con flujo normal
+      }
       
       if (this.lead.stage === 'captura') {
         this.handleCaptureFlow(text, textLower);
@@ -1147,6 +1299,98 @@
 
   salesBot.init();
   window.salesBot = salesBot;
+
+  // ============================================
+  // GALERÍA ROTATIVA AUTOMÁTICA
+  // ============================================
+  
+  const galeriaFotos = {
+    postboda_color: [
+      'postboda-01.jpg', 'postboda-02.jpg', 'postboda-04.jpg',
+      'postboda-05.jpg', 'postboda-06-cargada.jpg', 'postboda-07.jpg',
+      'postboda-08-editorial.jpg', 'postboda-09-brazos.jpg',
+      'postboda-10-baile.jpg', 'postboda-11.jpg', 'hero-allison-cristian.jpg'
+    ],
+    postboda_bn: ['postboda-03-bn.jpg'],
+    ceremonia_vinedo: ['vinedo-01.jpg', 'vinedo-02.jpg', 'novio-vinedo.jpg'],
+    drone: ['drone-vinedo.jpg'],
+    cabina: [
+      'cabina-blanca-flores.webp', 'cabina-blanca-interior.webp',
+      'cabina-negra.webp', 'cabina-libro.webp'
+    ],
+    estudio: ['estudio-01.jpg', 'estudio-02.jpg']
+  };
+  
+  function iniciarGaleriaRotativa() {
+    // Combinar todas las fotos
+    const todasLasFotos = [
+      ...galeriaFotos.postboda_color,
+      ...galeriaFotos.postboda_bn,
+      ...galeriaFotos.ceremonia_vinedo,
+      ...galeriaFotos.drone,
+      ...galeriaFotos.cabina,
+      ...galeriaFotos.estudio
+    ];
+    
+    // Función para mezclar array (Fisher-Yates shuffle)
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+    
+    // Mezclar fotos aleatoriamente
+    let fotosAleatorias = shuffle(todasLasFotos);
+    let indiceActual = 0;
+    
+    const figuras = document.querySelectorAll('.mosaic figure img');
+    if (figuras.length === 0) return;  // Si no hay galería, salir
+    
+    // Función para actualizar una foto
+    function actualizarFoto(img, index) {
+      const nuevaFoto = fotosAleatorias[index % fotosAleatorias.length];
+      const nuevaSrc = `img/${nuevaFoto}`;
+      
+      // Fade out
+      img.style.opacity = '0';
+      
+      setTimeout(() => {
+        img.src = nuevaSrc;
+        // Fade in
+        img.style.opacity = '1';
+      }, 300);
+    }
+    
+    // Agregar transición suave a todas las imágenes
+    figuras.forEach(img => {
+      img.style.transition = 'opacity 0.6s ease-in-out';
+    });
+    
+    // Rotar cada 5 segundos
+    setInterval(() => {
+      figuras.forEach((img, i) => {
+        const fotoIndex = (indiceActual + i) % fotosAleatorias.length;
+        actualizarFoto(img, fotoIndex);
+      });
+      
+      indiceActual = (indiceActual + 1) % fotosAleatorias.length;
+      
+      // Remezclar cuando termine el ciclo completo
+      if (indiceActual === 0) {
+        fotosAleatorias = shuffle(todasLasFotos);
+      }
+    }, 5000);
+  }
+  
+  // Iniciar galería rotativa cuando cargue la página
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarGaleriaRotativa);
+  } else {
+    iniciarGaleriaRotativa();
+  }
 
   // Schema.org
   const schemaLocal = {
