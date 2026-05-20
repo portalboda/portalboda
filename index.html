@@ -555,7 +555,7 @@
 </section>
 
 <!-- ============================================
-     GALERÍA — MOSAICO EDITORIAL
+     GALERÍA — CARRUSEL AUTOMÁTICO
 ============================================ -->
 <section class="galeria-section" id="galeria">
   <div class="section-head">
@@ -564,29 +564,24 @@
     <p class="section-sub">Una selección de nuestros matrimonios documentados.</p>
   </div>
 
-  <div class="mosaic">
-    <figure class="m m1"><img src="img/postboda-01.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m2"><img src="img/postboda-02.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m3"><img src="img/postboda-03-bn.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m4"><img src="img/postboda-04.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m5"><img src="img/postboda-05.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m6"><img src="img/postboda-06-cargada.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m7"><img src="img/postboda-07.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m8"><img src="img/postboda-08-editorial.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m9"><img src="img/postboda-09-brazos.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m10"><img src="img/postboda-10-baile.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m11"><img src="img/postboda-11.jpg" alt="Postboda" loading="lazy"></figure>
-    <figure class="m m12"><img src="img/vinedo-01.jpg" alt="Matrimonio en viñedo" loading="lazy"></figure>
-    <figure class="m m1"><img src="img/vinedo-02.jpg" alt="Matrimonio en viñedo" loading="lazy"></figure>
-    <figure class="m m2"><img src="img/drone-vinedo.jpg" alt="Vista aérea con drone" loading="lazy"></figure>
-    <figure class="m m3"><img src="img/novio-vinedo.jpg" alt="Novio en viñedo" loading="lazy"></figure>
-    <figure class="m m4"><img src="img/cabina-blanca-flores.webp" alt="Cabina fotográfica" loading="lazy"></figure>
-    <figure class="m m5"><img src="img/cabina-blanca-interior.webp" alt="Cabina fotográfica" loading="lazy"></figure>
-    <figure class="m m6"><img src="img/cabina-negra.webp" alt="Cabina fotográfica" loading="lazy"></figure>
-    <figure class="m m7"><img src="img/cabina-libro.webp" alt="Libro de recuerdos" loading="lazy"></figure>
-    <figure class="m m8"><img src="img/estudio-01.jpg" alt="Estudio fotográfico" loading="lazy"></figure>
-    <figure class="m m9"><img src="img/estudio-02.jpg" alt="Estudio fotográfico" loading="lazy"></figure>
-    <figure class="m m10"><img src="img/hero-allison-cristian.jpg" alt="Postboda en la playa" loading="lazy"></figure>
+  <div class="galeria-carousel-wrapper">
+    <button class="galeria-carousel-btn galeria-prev" aria-label="Anterior">‹</button>
+    <button class="galeria-carousel-btn galeria-next" aria-label="Siguiente">›</button>
+    
+    <div class="galeria-carousel-container">
+      <div class="galeria-carousel-track">
+        <!-- Las fotos se cargarán dinámicamente con JavaScript -->
+      </div>
+    </div>
+    
+    <div class="galeria-carousel-dots"></div>
+    
+    <div class="galeria-carousel-controls">
+      <button class="galeria-play-pause" aria-label="Pausar">
+        <span class="play-icon">▶</span>
+        <span class="pause-icon">❚❚</span>
+      </button>
+    </div>
   </div>
 </section>
 

@@ -1330,7 +1330,45 @@
     sesiones: ['sesion-pareja.webp']
   };
   
-  function iniciarGaleriaRotativa() {
+  // ============================================
+  // GALERÍA CARRUSEL AUTOMÁTICO
+  // ============================================
+  
+  const galeriaFotos = {
+    postboda_color: [
+      'postboda-01.jpg', 'postboda-02.jpg', 'postboda-04.jpg',
+      'postboda-05.jpg', 'postboda-06-cargada.jpg', 'postboda-07.jpg',
+      'postboda-08-editorial.jpg', 'postboda-09-brazos.jpg',
+      'postboda-10-baile.jpg', 'postboda-11.jpg', 'postboda-12.jpg',
+      'postboda-13.jpg', 'postboda-14.jpg', 'postboda-15.jpg',
+      'postboda-16.jpg', 'postboda-17.jpg', 'postboda-18.jpg',
+      'postboda-19.jpg', 'postboda-20.jpg', 'postboda-21.jpg',
+      'hero-allison-cristian.jpg'
+    ],
+    postboda_bn: ['postboda-03-bn.jpg'],
+    ceremonia_vinedo: ['vinedo-01.jpg', 'vinedo-02.jpg', 'novio-vinedo.jpg'],
+    ceremonia: ['ceremonia-beso.jpg', 'novia-retrato.jpg'],
+    drone: [
+      'drone-vinedo.jpg', 'drone-ceremonia-01.jpg', 
+      'drone-ceremonia-02.jpg', 'drone-ceremonia-03.jpg'
+    ],
+    cabina: [
+      'cabina-blanca-flores.webp', 'cabina-blanca-interior.webp',
+      'cabina-negra.webp', 'cabina-libro.webp'
+    ],
+    estudio: ['estudio-01.jpg', 'estudio-02.jpg'],
+    sesiones: ['sesion-pareja.webp']
+  };
+  
+  function iniciarGaleriaCarrusel() {
+    const track = document.querySelector('.galeria-carousel-track');
+    const dotsContainer = document.querySelector('.galeria-carousel-dots');
+    const prevBtn = document.querySelector('.galeria-prev');
+    const nextBtn = document.querySelector('.galeria-next');
+    const playPauseBtn = document.querySelector('.galeria-play-pause');
+    
+    if (!track || !dotsContainer) return;
+    
     // Combinar todas las fotos
     const todasLasFotos = [
       ...galeriaFotos.postboda_color,
@@ -1343,64 +1381,99 @@
       ...galeriaFotos.sesiones
     ];
     
-    // Función para mezclar array (Fisher-Yates shuffle)
-    function shuffle(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-    
-    // Mezclar fotos aleatoriamente
-    let fotosAleatorias = shuffle(todasLasFotos);
-    let indiceActual = 0;
-    
-    const figuras = document.querySelectorAll('.mosaic figure img');
-    if (figuras.length === 0) return;  // Si no hay galería, salir
-    
-    // Función para actualizar una foto
-    function actualizarFoto(img, index) {
-      const nuevaFoto = fotosAleatorias[index % fotosAleatorias.length];
-      const nuevaSrc = `img/${nuevaFoto}`;
-      
-      // Fade out
-      img.style.opacity = '0';
-      
-      setTimeout(() => {
-        img.src = nuevaSrc;
-        // Fade in
-        img.style.opacity = '1';
-      }, 300);
-    }
-    
-    // Agregar transición suave a todas las imágenes
-    figuras.forEach(img => {
-      img.style.transition = 'opacity 0.6s ease-in-out';
+    // Crear items del carrusel
+    todasLasFotos.forEach(foto => {
+      const item = document.createElement('div');
+      item.className = 'galeria-carousel-item';
+      item.innerHTML = `<img src="img/${foto}" alt="Galería" loading="lazy">`;
+      track.appendChild(item);
     });
     
-    // Rotar cada 5 segundos
-    setInterval(() => {
-      figuras.forEach((img, i) => {
-        const fotoIndex = (indiceActual + i) % fotosAleatorias.length;
-        actualizarFoto(img, fotoIndex);
+    // Crear dots
+    todasLasFotos.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.className = 'galeria-carousel-dot';
+      if (index === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        updateCarrusel();
+        resetAutoPlay();
       });
+      dotsContainer.appendChild(dot);
+    });
+    
+    const items = Array.from(track.children);
+    const dots = Array.from(dotsContainer.children);
+    let currentIndex = 0;
+    let autoPlayInterval;
+    let isPlaying = true;
+    
+    function updateCarrusel() {
+      const offset = currentIndex * 100;
+      track.style.transform = `translateX(-${offset}%)`;
       
-      indiceActual = (indiceActual + 1) % fotosAleatorias.length;
-      
-      // Remezclar cuando termine el ciclo completo
-      if (indiceActual === 0) {
-        fotosAleatorias = shuffle(todasLasFotos);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+    
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % items.length;
+      updateCarrusel();
+    }
+    
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      updateCarrusel();
+    }
+    
+    function startAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(nextSlide, 5000);
+      isPlaying = true;
+      playPauseBtn.classList.remove('paused');
+    }
+    
+    function stopAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+      isPlaying = false;
+      playPauseBtn.classList.add('paused');
+    }
+    
+    function resetAutoPlay() {
+      if (isPlaying) {
+        stopAutoPlay();
+        startAutoPlay();
       }
-    }, 5000);
+    }
+    
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      resetAutoPlay();
+    });
+    
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      resetAutoPlay();
+    });
+    
+    playPauseBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        stopAutoPlay();
+      } else {
+        startAutoPlay();
+      }
+    });
+    
+    // Iniciar autoplay
+    startAutoPlay();
+    updateCarrusel();
   }
   
-  // Iniciar galería rotativa cuando cargue la página
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', iniciarGaleriaRotativa);
+    document.addEventListener('DOMContentLoaded', iniciarGaleriaCarrusel);
   } else {
-    iniciarGaleriaRotativa();
+    iniciarGaleriaCarrusel();
   }
 
   // ============================================
