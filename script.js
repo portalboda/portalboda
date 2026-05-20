@@ -1404,101 +1404,89 @@
   }
 
   // ============================================
-  // CARRUSEL DE TESTIMONIOS
+  // CARRUSEL DE TESTIMONIOS - SIMPLIFICADO
   // ============================================
   
   function iniciarCarruselTestimonios() {
-    const track = document.querySelector('.carousel-track');
-    const slides = Array.from(track.children);
-    const nextButton = document.querySelector('.carousel-next');
-    const prevButton = document.querySelector('.carousel-prev');
-    const indicatorsContainer = document.querySelector('.carousel-indicators');
+    const track = document.querySelector('.testimonios-track');
+    const items = Array.from(track.children);
+    const nextBtn = document.querySelector('.testimonios-carousel-wrapper .carousel-next');
+    const prevBtn = document.querySelector('.testimonios-carousel-wrapper .carousel-prev');
+    const dotsContainer = document.querySelector('.testimonios-dots');
     
-    if (!track || slides.length === 0) return;
+    if (!track || items.length === 0) return;
     
-    // Detectar cuántas cards se ven a la vez
-    function getSlidesPerView() {
-      const width = window.innerWidth;
-      if (width >= 1024) return 3;
-      if (width >= 640) return 2;
-      return 1;
-    }
-    
-    let slidesPerView = getSlidesPerView();
+    let itemsPerView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
     let currentIndex = 0;
-    const totalSlides = slides.length;
-    const maxIndex = Math.max(0, totalSlides - slidesPerView);
+    const totalItems = items.length;
+    const maxIndex = Math.max(0, totalItems - itemsPerView);
     
     // Crear indicadores
-    for (let i = 0; i <= maxIndex; i++) {
-      const indicator = document.createElement('div');
-      indicator.classList.add('carousel-indicator');
-      if (i === 0) indicator.classList.add('active');
-      indicator.addEventListener('click', () => {
+    const numDots = maxIndex + 1;
+    for (let i = 0; i < numDots; i++) {
+      const dot = document.createElement('button');
+      dot.classList.add('testimonios-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
         currentIndex = i;
         updateCarousel();
       });
-      indicatorsContainer.appendChild(indicator);
+      dotsContainer.appendChild(dot);
     }
     
-    const indicators = Array.from(indicatorsContainer.children);
+    const dots = Array.from(dotsContainer.children);
     
     function updateCarousel() {
-      // Calcular desplazamiento
-      const slideWidth = slides[0].getBoundingClientRect().width;
-      const gap = 30;
-      const offset = currentIndex * (slideWidth + gap);
+      const itemWidth = items[0].getBoundingClientRect().width;
+      const gap = 20;
+      const offset = currentIndex * (itemWidth + gap);
       
       track.style.transform = `translateX(-${offset}px)`;
       
-      // Actualizar indicadores
-      indicators.forEach((ind, i) => {
-        ind.classList.toggle('active', i === currentIndex);
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
       });
       
-      // Actualizar botones
-      prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
-      prevButton.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
-      nextButton.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
-      nextButton.style.pointerEvents = currentIndex >= maxIndex ? 'none' : 'auto';
+      prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
+      prevBtn.style.cursor = currentIndex === 0 ? 'not-allowed' : 'pointer';
+      nextBtn.style.opacity = currentIndex >= maxIndex ? '0.3' : '1';
+      nextBtn.style.cursor = currentIndex >= maxIndex ? 'not-allowed' : 'pointer';
     }
     
-    nextButton.addEventListener('click', () => {
+    nextBtn.addEventListener('click', () => {
       if (currentIndex < maxIndex) {
         currentIndex++;
         updateCarousel();
       }
     });
     
-    prevButton.addEventListener('click', () => {
+    prevBtn.addEventListener('click', () => {
       if (currentIndex > 0) {
         currentIndex--;
         updateCarousel();
       }
     });
     
-    // Actualizar en resize
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        const newSlidesPerView = getSlidesPerView();
-        if (newSlidesPerView !== slidesPerView) {
-          slidesPerView = newSlidesPerView;
+        const newItemsPerView = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+        if (newItemsPerView !== itemsPerView) {
+          itemsPerView = newItemsPerView;
           currentIndex = 0;
           
-          // Recrear indicadores
-          indicatorsContainer.innerHTML = '';
-          const newMaxIndex = Math.max(0, totalSlides - slidesPerView);
+          dotsContainer.innerHTML = '';
+          const newMaxIndex = Math.max(0, totalItems - itemsPerView);
           for (let i = 0; i <= newMaxIndex; i++) {
-            const indicator = document.createElement('div');
-            indicator.classList.add('carousel-indicator');
-            if (i === 0) indicator.classList.add('active');
-            indicator.addEventListener('click', () => {
+            const dot = document.createElement('button');
+            dot.classList.add('testimonios-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
               currentIndex = i;
               updateCarousel();
             });
-            indicatorsContainer.appendChild(indicator);
+            dotsContainer.appendChild(dot);
           }
           
           updateCarousel();
@@ -1506,11 +1494,9 @@
       }, 250);
     });
     
-    // Inicializar
     updateCarousel();
   }
   
-  // Iniciar carrusel cuando cargue
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciarCarruselTestimonios);
   } else {

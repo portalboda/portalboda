@@ -1505,47 +1505,47 @@ section {
 }
 
 /* ============================================
-   TESTIMONIOS CAROUSEL
+   TESTIMONIOS CAROUSEL - COMPACTO
 ============================================ */
 .testimonios-section {
   padding: var(--section-padding) 0;
   background: var(--bg);
-  position: relative;
 }
 
-.testimonios-carousel {
+.testimonios-carousel-wrapper {
   position: relative;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 0 70px;
 }
 
-.carousel-track-container {
+.testimonios-track-container {
   overflow: hidden;
   position: relative;
 }
 
-.carousel-track {
+.testimonios-track {
   display: flex;
-  gap: 30px;
+  gap: 20px;
   transition: transform 0.5s ease-in-out;
 }
 
-.testimonio-card {
-  min-width: calc((100% - 60px) / 3);
+.testimonio-item {
+  min-width: calc(33.333% - 14px);
   flex-shrink: 0;
 }
 
-.testimonio-card .video-embed {
+.testimonio-video {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   border-radius: 8px;
   background: #000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.testimonio-card .video-embed iframe {
+.testimonio-video iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -1553,81 +1553,42 @@ section {
   height: 100%;
 }
 
-.testimonio-nombre {
-  margin-top: 12px;
-  font-size: 14px;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid var(--border);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  font-size: 32px;
-  line-height: 1;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s ease;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-btn:hover {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-
-.carousel-prev {
-  left: 10px;
-}
-
-.carousel-next {
-  right: 10px;
-}
-
-.carousel-indicators {
+.testimonios-dots {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-top: 24px;
 }
 
-.carousel-indicator {
+.testimonios-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--border);
   cursor: pointer;
   transition: all 0.3s ease;
+  border: none;
+  padding: 0;
 }
 
-.carousel-indicator.active {
+.testimonios-dot.active {
   background: var(--accent);
   width: 24px;
   border-radius: 5px;
 }
 
 @media (max-width: 1024px) {
-  .testimonio-card {
-    min-width: calc((100% - 30px) / 2);
+  .testimonio-item {
+    min-width: calc(50% - 10px);
   }
 }
 
 @media (max-width: 640px) {
-  .testimonios-carousel {
-    padding: 0 50px;
+  .testimonios-carousel-wrapper {
+    padding: 0 60px;
   }
   
-  .testimonio-card {
+  .testimonio-item {
     min-width: 100%;
   }
   
@@ -1635,14 +1596,6 @@ section {
     width: 40px;
     height: 40px;
     font-size: 24px;
-  }
-  
-  .carousel-prev {
-    left: 5px;
-  }
-  
-  .carousel-next {
-    right: 5px;
   }
 }
 
