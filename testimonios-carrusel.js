@@ -53,8 +53,10 @@
     function prevSlide() {
       if (currentIndex > 0) {
         currentIndex--;
-        updateCarousel();
+      } else {
+        currentIndex = maxIndex; // Ir al final
       }
+      updateCarousel();
     }
     
     function startAutoScroll() {
@@ -105,11 +107,8 @@
     });
     
     nextBtn.addEventListener('click', () => {
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-        updateCarousel();
-        resetAutoScroll();
-      }
+      nextSlide();
+      resetAutoScroll();
     });
     
     prevBtn.addEventListener('click', () => {
