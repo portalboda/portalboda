@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería 3D - Portal Boda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .carousel-wrapper {
+            perspective: 1200px;
+            height: 500px;
+            position: relative;
+            cursor: grab;
+        }
+
+        .carousel-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        .carousel-item {
+            position: absolute;
+            width: 280px;
+            height: 400px;
+            left: 50%;
+            top: 50%;
+            margin-left: -140px;
+            margin-top: -200px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            user-select: none;
+        }
+
+        .carousel-item:hover {
+            box-shadow: 0 15px 60px rgba(0,0,0,0.5);
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-item .label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 20px 15px 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Modal para vista detallada */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            animation: zoomIn 0.3s;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform 0.2s;
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+
+        .modal-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 1.2em;
+            max-width: 70%;
+        }
+
+        /* Controles */
+        .controls {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+        }
+
+        .controls p {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .indicator {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+
+            .carousel-wrapper {
+                height: 350px;
+            }
+
+            .carousel-item {
+                width: 200px;
+                height: 300px;
+                margin-left: -100px;
+                margin-top: -150px;
+            }
+
+            .close-modal {
+                top: 15px;
+                right: 20px;
+                font-size: 30px;
+            }
+
+            .nav-buttons {
+                flex-wrap: wrap;
+            }
+        }
+
+        .info-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .carousel-item:hover .info-badge {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Galería de Bodas ✨</h1>
+
+        <div class="carousel-wrapper" id="carouselWrapper">
+            <div class="carousel" id="carousel">
+                <!-- Los elementos se generarán con JavaScript -->
+            </div>
+        </div>
+
+        <div class="controls">
+            <p>💫 Mueve tu mouse sobre el carrusel para rotarlo • Haz click en una foto para verla en grande 💫</p>
+            <div class="nav-buttons">
+                <button onclick="rotateCarousel(-1)">← Anterior</button>
+                <button onclick="rotateCarousel(1)">Siguiente →</button>
+            </div>
+            <div class="indicator">
+                <span id="currentIndex">1</span> / <span id="totalImages">16</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para vista detallada -->
+    <div class="modal" id="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modalImg" class="modal-img" src="" alt="Vista detallada">
+            <div class="modal-title" id="modalTitle"></div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de las imágenes - ACTUALIZAR CON RUTAS REALES
+        const images = [
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+1',
+                label: 'Ceremonia en la playa'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+2',
+                label: 'Recepción elegante'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+3',
+                label: 'Momento romántico'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+4',
+                label: 'Drone aéreo'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+5',
+                label: 'Detalles hermosos'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+6',
+                label: 'Zona gamer'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+7',
+                label: 'Glitter y brillo'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+8',
+                label: 'Familia reunida'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+9',
+                label: 'Baile y celebración'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+10',
+                label: 'Atardecer perfecto'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+11',
+                label: 'Pareja radiante'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+12',
+                label: 'Pastel espectacular'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+13',
+                label: 'Novios felices'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+14',
+                label: 'Florales bellos'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+15',
+                label: 'Iluminación mágica'
+            },
+            {
+                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+16',
+                label: 'Recuerdos eternos'
+            }
+        ];
+
+        let currentRotation = 0;
+        let mouseX = 0;
+        let isDragging = false;
+        let dragStart = 0;
+
+        const carousel = document.getElementById('carousel');
+        const carouselWrapper = document.getElementById('carouselWrapper');
+        const modal = document.getElementById('modal');
+
+        // Inicializar carrusel
+        function initCarousel() {
+            const itemCount = images.length;
+            const angleSlice = 360 / itemCount;
+
+            images.forEach((image, index) => {
+                const item = document.createElement('div');
+                item.className = 'carousel-item';
+                item.style.transform = `rotateY(${index * angleSlice}deg) translateZ(400px)`;
+
+                item.innerHTML = `
+                    <img src="${image.url}" alt="${image.label}" loading="lazy">
+                    <div class="label">${image.label}</div>
+                    <div class="info-badge">Click para ampliar</div>
+                `;
+
+                item.addEventListener('click', () => openModal(image));
+                carousel.appendChild(item);
+            });
+
+            document.getElementById('totalImages').textContent = itemCount;
+        }
+
+        // Actualizar rotación
+        function updateCarouselRotation() {
+            carousel.style.transform = `rotateY(${currentRotation}deg)`;
+            updateIndicator();
+        }
+
+        // Actualizar indicador
+        function updateIndicator() {
+            const itemCount = images.length;
+            const angleSlice = 360 / itemCount;
+            let index = Math.round((-currentRotation % 360) / angleSlice);
+            if (index < 0) index += itemCount;
+            document.getElementById('currentIndex').textContent = index + 1;
+        }
+
+        // Rotación del carrusel
+        function rotateCarousel(direction) {
+            const itemCount = images.length;
+            const angleSlice = 360 / itemCount;
+            currentRotation += direction * angleSlice;
+            updateCarouselRotation();
+        }
+
+        // Eventos del mouse
+        carouselWrapper.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            dragStart = e.clientX;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const diff = e.clientX - dragStart;
+                currentRotation = (currentRotation - diff * 0.5) % 360;
+                updateCarouselRotation();
+                dragStart = e.clientX;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // Touch para dispositivos móviles
+        carouselWrapper.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            dragStart = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                const diff = e.touches[0].clientX - dragStart;
+                currentRotation = (currentRotation - diff * 0.5) % 360;
+                updateCarouselRotation();
+                dragStart = e.touches[0].clientX;
+            }
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Modal
+        function openModal(image) {
+            const modalImg = document.getElementById('modalImg');
+            const modalTitle = document.getElementById('modalTitle');
+            modalImg.src = image.url;
+            modalTitle.textContent = image.label;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') rotateCarousel(-1);
+            if (e.key === 'ArrowRight') rotateCarousel(1);
+        });
+
+        // Iniciar
+        initCarousel();
+        updateCarouselRotation();
+    </script>
+</body>
+</html>
