@@ -218,6 +218,28 @@
             opacity: 0.7;
         }
 
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             h1 {
@@ -245,11 +267,18 @@
             .nav-buttons {
                 flex-wrap: wrap;
             }
+
+            .back-button {
+                top: 10px;
+                left: 10px;
+                padding: 8px 20px;
+                font-size: 0.8em;
+            }
         }
 
         .info-badge {
             position: absolute;
-            bottom: 20px;
+            bottom: 60px;
             right: 20px;
             background: rgba(102, 126, 234, 0.9);
             color: white;
@@ -266,8 +295,10 @@
     </style>
 </head>
 <body>
+    <button class="back-button" onclick="window.location.href='index.html'">← Volver al sitio</button>
+
     <div class="container">
-        <h1>✨ Galería de Bodas ✨</h1>
+        <h1>✨ Galería Portal Boda ✨</h1>
 
         <div class="carousel-wrapper" id="carouselWrapper">
             <div class="carousel" id="carousel">
@@ -282,7 +313,7 @@
                 <button onclick="rotateCarousel(1)">Siguiente →</button>
             </div>
             <div class="indicator">
-                <span id="currentIndex">1</span> / <span id="totalImages">16</span>
+                <span id="currentIndex">1</span> / <span id="totalImages">14</span>
             </div>
         </div>
     </div>
@@ -297,71 +328,63 @@
     </div>
 
     <script>
-        // Datos de las imágenes - ACTUALIZAR CON RUTAS REALES
+        // Datos de las imágenes reales de Portal Boda
         const images = [
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+1',
-                label: 'Ceremonia en la playa'
+                url: 'img/ceremonia-beso-2024.jpg',
+                label: 'Ceremonia - El beso'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+2',
-                label: 'Recepción elegante'
+                url: 'img/drone-boda-aereo.jpg',
+                label: 'Vista aérea con drone'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+3',
-                label: 'Momento romántico'
+                url: 'img/expoboda-stand.jpeg',
+                label: 'Stand en ExpoBoda'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+4',
-                label: 'Drone aéreo'
+                url: 'img/glitter-bar.webp',
+                label: 'Glitter Bar'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+5',
-                label: 'Detalles hermosos'
+                url: 'img/postboda-leyla-daniel.jpg',
+                label: 'Postboda Leyla y Daniel'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+6',
-                label: 'Zona gamer'
+                url: 'img/postboda-min-nacho.jpg',
+                label: 'Postboda Min y Nacho'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+7',
-                label: 'Glitter y brillo'
+                url: 'img/postboda-velo-volando.jpg',
+                label: 'Postboda - Velo al viento'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+8',
-                label: 'Familia reunida'
+                url: 'img/postboda-pareja-bn.jpg',
+                label: 'Postboda blanco y negro'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+9',
-                label: 'Baile y celebración'
+                url: 'img/ceremonia-exterior.jpg',
+                label: 'Ceremonia en jardín'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+10',
-                label: 'Atardecer perfecto'
+                url: 'img/ceremonia-manos-ramo.jpg',
+                label: 'Detalle de manos y ramo'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+11',
-                label: 'Pareja radiante'
+                url: 'img/postboda-moto-atardecer.jpg',
+                label: 'Postboda en moto - Atardecer'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+12',
-                label: 'Pastel espectacular'
+                url: 'img/hero-allison-cristian.jpg',
+                label: 'Allison y Cristian'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+13',
-                label: 'Novios felices'
+                url: 'img/postboda-01.jpg',
+                label: 'Postboda en la playa'
             },
             {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+14',
-                label: 'Florales bellos'
-            },
-            {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+15',
-                label: 'Iluminación mágica'
-            },
-            {
-                url: 'https://via.placeholder.com/280x400/FFB6C1/FFFFFF?text=Boda+16',
-                label: 'Recuerdos eternos'
+                url: 'img/drone-vinedo.jpg',
+                label: 'Vista aérea viñedo'
             }
         ];
 
