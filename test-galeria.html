@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Galería</title>
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.galeria-carousel-wrapper {
+  position: relative;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 70px;
+}
+
+.galeria-carousel-container {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  background: #000;
+}
+
+.galeria-carousel-track {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.galeria-carousel-item {
+  min-width: 100%;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.galeria-carousel-item img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  display: block;
+}
+
+.galeria-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #ddd;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.galeria-carousel-btn:hover {
+  background: #6e3cdc;
+  color: white;
+  border-color: #6e3cdc;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.galeria-prev { left: 10px; }
+.galeria-next { right: 10px; }
+
+.galeria-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.galeria-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  padding: 0;
+}
+
+.galeria-carousel-dot.active {
+  background: #6e3cdc;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.galeria-carousel-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.galeria-play-pause {
+  background: #6e3cdc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.galeria-play-pause:hover {
+  background: #5a2fb8;
+  transform: scale(1.05);
+}
+
+.galeria-play-pause .play-icon { display: none; }
+.galeria-play-pause .pause-icon { display: inline; }
+.galeria-play-pause.paused .play-icon { display: inline; }
+.galeria-play-pause.paused .pause-icon { display: none; }
+
+.debug {
+  background: white;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.debug h2 {
+  margin-top: 0;
+  color: #6e3cdc;
+}
+
+.debug ul {
+  list-style: none;
+  padding: 0;
+}
+
+.debug li {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.debug li:last-child {
+  border-bottom: none;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🔍 Test Galería - Portal Boda</h1>
+  
+  <div class="galeria-carousel-wrapper">
+    <button class="galeria-carousel-btn galeria-prev" aria-label="Anterior">‹</button>
+    <button class="galeria-carousel-btn galeria-next" aria-label="Siguiente">›</button>
+    
+    <div class="galeria-carousel-container">
+      <div class="galeria-carousel-track" id="track">
+        <!-- Fotos se cargan aquí -->
+      </div>
+    </div>
+    
+    <div class="galeria-carousel-dots" id="dots"></div>
+    
+    <div class="galeria-carousel-controls">
+      <button class="galeria-play-pause" id="playPause" aria-label="Pausar">
+        <span class="play-icon">▶</span>
+        <span class="pause-icon">❚❚</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="debug">
+    <h2>📊 Debug Info</h2>
+    <div id="debugInfo"></div>
+  </div>
+</div>
+
+<script>
+const galeriaFotos = {
+  postboda_color: [
+    'postboda-01.jpg', 'postboda-02.jpg', 'postboda-04.jpg',
+    'postboda-05.jpg', 'postboda-06-cargada.jpg', 'postboda-07.jpg',
+    'postboda-08-editorial.jpg', 'postboda-09-brazos.jpg',
+    'postboda-10-baile.jpg', 'postboda-11.jpg', 'postboda-12.jpg',
+    'postboda-13.jpg', 'postboda-14.jpg', 'postboda-15.jpg',
+    'postboda-16.jpg', 'postboda-17.jpg', 'postboda-18.jpg',
+    'postboda-19.jpg', 'postboda-20.jpg', 'postboda-21.jpg',
+    'hero-allison-cristian.jpg'
+  ],
+  postboda_bn: ['postboda-03-bn.jpg'],
+  ceremonia_vinedo: ['vinedo-01.jpg', 'vinedo-02.jpg', 'novio-vinedo.jpg'],
+  ceremonia: ['ceremonia-beso.jpg', 'novia-retrato.jpg'],
+  drone: [
+    'drone-vinedo.jpg', 'drone-ceremonia-01.jpg', 
+    'drone-ceremonia-02.jpg', 'drone-ceremonia-03.jpg'
+  ],
+  cabina: [
+    'cabina-blanca-flores.webp', 'cabina-blanca-interior.webp',
+    'cabina-negra.webp', 'cabina-libro.webp'
+  ],
+  estudio: ['estudio-01.jpg', 'estudio-02.jpg'],
+  sesiones: ['sesion-pareja.webp']
+};
+
+// Combinar todas las fotos
+const todasLasFotos = [
+  ...galeriaFotos.postboda_color,
+  ...galeriaFotos.postboda_bn,
+  ...galeriaFotos.ceremonia_vinedo,
+  ...galeriaFotos.ceremonia,
+  ...galeriaFotos.drone,
+  ...galeriaFotos.cabina,
+  ...galeriaFotos.estudio,
+  ...galeriaFotos.sesiones
+];
+
+const debugInfo = document.getElementById('debugInfo');
+const track = document.getElementById('track');
+const dotsContainer = document.getElementById('dots');
+const prevBtn = document.querySelector('.galeria-prev');
+const nextBtn = document.querySelector('.galeria-next');
+const playPauseBtn = document.getElementById('playPause');
+
+// Debug info
+let debugHTML = `<ul>`;
+debugHTML += `<li>✅ Total de fotos: <strong>${todasLasFotos.length}</strong></li>`;
+debugHTML += `<li>📂 Ruta base: <strong>img/</strong></li>`;
+debugHTML += `<li>🔍 Fotos a cargar:</li>`;
+
+// Crear items del carrusel
+let loadedCount = 0;
+let errorCount = 0;
+
+todasLasFotos.forEach((foto, index) => {
+  const item = document.createElement('div');
+  item.className = 'galeria-carousel-item';
+  
+  const img = document.createElement('img');
+  img.src = `img/${foto}`;
+  img.alt = `Galería ${index + 1}`;
+  img.loading = 'lazy';
+  
+  // Verificar si la imagen carga
+  img.onload = () => {
+    loadedCount++;
+    updateDebug();
+  };
+  
+  img.onerror = () => {
+    errorCount++;
+    console.error(`❌ Error cargando: img/${foto}`);
+    updateDebug();
+  };
+  
+  item.appendChild(img);
+  track.appendChild(item);
+  
+  // Crear dot
+  const dot = document.createElement('button');
+  dot.className = 'galeria-carousel-dot';
+  if (index === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => {
+    currentIndex = index;
+    updateCarrusel();
+    resetAutoPlay();
+  });
+  dotsContainer.appendChild(dot);
+});
+
+const items = Array.from(track.children);
+const dots = Array.from(dotsContainer.children);
+let currentIndex = 0;
+let autoPlayInterval;
+let isPlaying = true;
+
+function updateDebug() {
+  debugHTML = `<ul>`;
+  debugHTML += `<li>✅ Total de fotos: <strong>${todasLasFotos.length}</strong></li>`;
+  debugHTML += `<li>📂 Ruta base: <strong>img/</strong></li>`;
+  debugHTML += `<li>✅ Fotos cargadas: <strong>${loadedCount} / ${todasLasFotos.length}</strong></li>`;
+  debugHTML += `<li>❌ Fotos con error: <strong>${errorCount}</strong></li>`;
+  debugHTML += `<li>🔄 Autoplay: <strong>${isPlaying ? 'Activo (5s)' : 'Pausado'}</strong></li>`;
+  debugHTML += `<li>📍 Foto actual: <strong>${currentIndex + 1} / ${todasLasFotos.length}</strong></li>`;
+  debugHTML += `</ul>`;
+  debugInfo.innerHTML = debugHTML;
+}
+
+function updateCarrusel() {
+  const offset = currentIndex * 100;
+  track.style.transform = `translateX(-${offset}%)`;
+  
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentIndex);
+  });
+  
+  updateDebug();
+}
+
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % items.length;
+  updateCarrusel();
+}
+
+function prevSlide() {
+  currentIndex = (currentIndex - 1 + items.length) % items.length;
+  updateCarrusel();
+}
+
+function startAutoPlay() {
+  if (autoPlayInterval) clearInterval(autoPlayInterval);
+  autoPlayInterval = setInterval(nextSlide, 5000);
+  isPlaying = true;
+  playPauseBtn.classList.remove('paused');
+  updateDebug();
+}
+
+function stopAutoPlay() {
+  if (autoPlayInterval) clearInterval(autoPlayInterval);
+  isPlaying = false;
+  playPauseBtn.classList.add('paused');
+  updateDebug();
+}
+
+function resetAutoPlay() {
+  if (isPlaying) {
+    stopAutoPlay();
+    startAutoPlay();
+  }
+}
+
+nextBtn.addEventListener('click', () => {
+  nextSlide();
+  resetAutoPlay();
+});
+
+prevBtn.addEventListener('click', () => {
+  prevSlide();
+  resetAutoPlay();
+});
+
+playPauseBtn.addEventListener('click', () => {
+  if (isPlaying) {
+    stopAutoPlay();
+  } else {
+    startAutoPlay();
+  }
+});
+
+// Iniciar
+startAutoPlay();
+updateCarrusel();
+updateDebug();
+
+console.log('🎬 Galería inicializada con', todasLasFotos.length, 'fotos');
+</script>
+</body>
+</html>
