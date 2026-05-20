@@ -1,5 +1,4 @@
 // PORTAL BODA — Chatbot de VENTAS con Neuromarketing
-// VERSION 2.0 - CARRUSELES - 2026-05-20
 // Información REAL y EXACTA de servicios y precios
 
 (function() {
