@@ -1309,16 +1309,25 @@
       'postboda-01.jpg', 'postboda-02.jpg', 'postboda-04.jpg',
       'postboda-05.jpg', 'postboda-06-cargada.jpg', 'postboda-07.jpg',
       'postboda-08-editorial.jpg', 'postboda-09-brazos.jpg',
-      'postboda-10-baile.jpg', 'postboda-11.jpg', 'hero-allison-cristian.jpg'
+      'postboda-10-baile.jpg', 'postboda-11.jpg', 'postboda-12.jpg',
+      'postboda-13.jpg', 'postboda-14.jpg', 'postboda-15.jpg',
+      'postboda-16.jpg', 'postboda-17.jpg', 'postboda-18.jpg',
+      'postboda-19.jpg', 'postboda-20.jpg', 'postboda-21.jpg',
+      'hero-allison-cristian.jpg'
     ],
     postboda_bn: ['postboda-03-bn.jpg'],
     ceremonia_vinedo: ['vinedo-01.jpg', 'vinedo-02.jpg', 'novio-vinedo.jpg'],
-    drone: ['drone-vinedo.jpg'],
+    ceremonia: ['ceremonia-beso.jpg', 'novia-retrato.jpg'],
+    drone: [
+      'drone-vinedo.jpg', 'drone-ceremonia-01.jpg', 
+      'drone-ceremonia-02.jpg', 'drone-ceremonia-03.jpg'
+    ],
     cabina: [
       'cabina-blanca-flores.webp', 'cabina-blanca-interior.webp',
       'cabina-negra.webp', 'cabina-libro.webp'
     ],
-    estudio: ['estudio-01.jpg', 'estudio-02.jpg']
+    estudio: ['estudio-01.jpg', 'estudio-02.jpg'],
+    sesiones: ['sesion-pareja.webp']
   };
   
   function iniciarGaleriaRotativa() {
@@ -1327,9 +1336,11 @@
       ...galeriaFotos.postboda_color,
       ...galeriaFotos.postboda_bn,
       ...galeriaFotos.ceremonia_vinedo,
+      ...galeriaFotos.ceremonia,
       ...galeriaFotos.drone,
       ...galeriaFotos.cabina,
-      ...galeriaFotos.estudio
+      ...galeriaFotos.estudio,
+      ...galeriaFotos.sesiones
     ];
     
     // Función para mezclar array (Fisher-Yates shuffle)
@@ -1390,6 +1401,120 @@
     document.addEventListener('DOMContentLoaded', iniciarGaleriaRotativa);
   } else {
     iniciarGaleriaRotativa();
+  }
+
+  // ============================================
+  // CARRUSEL DE TESTIMONIOS
+  // ============================================
+  
+  function iniciarCarruselTestimonios() {
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carousel-next');
+    const prevButton = document.querySelector('.carousel-prev');
+    const indicatorsContainer = document.querySelector('.carousel-indicators');
+    
+    if (!track || slides.length === 0) return;
+    
+    // Detectar cuántas cards se ven a la vez
+    function getSlidesPerView() {
+      const width = window.innerWidth;
+      if (width >= 1024) return 3;
+      if (width >= 640) return 2;
+      return 1;
+    }
+    
+    let slidesPerView = getSlidesPerView();
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    const maxIndex = Math.max(0, totalSlides - slidesPerView);
+    
+    // Crear indicadores
+    for (let i = 0; i <= maxIndex; i++) {
+      const indicator = document.createElement('div');
+      indicator.classList.add('carousel-indicator');
+      if (i === 0) indicator.classList.add('active');
+      indicator.addEventListener('click', () => {
+        currentIndex = i;
+        updateCarousel();
+      });
+      indicatorsContainer.appendChild(indicator);
+    }
+    
+    const indicators = Array.from(indicatorsContainer.children);
+    
+    function updateCarousel() {
+      // Calcular desplazamiento
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const gap = 30;
+      const offset = currentIndex * (slideWidth + gap);
+      
+      track.style.transform = `translateX(-${offset}px)`;
+      
+      // Actualizar indicadores
+      indicators.forEach((ind, i) => {
+        ind.classList.toggle('active', i === currentIndex);
+      });
+      
+      // Actualizar botones
+      prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
+      prevButton.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+      nextButton.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+      nextButton.style.pointerEvents = currentIndex >= maxIndex ? 'none' : 'auto';
+    }
+    
+    nextButton.addEventListener('click', () => {
+      if (currentIndex < maxIndex) {
+        currentIndex++;
+        updateCarousel();
+      }
+    });
+    
+    prevButton.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+      }
+    });
+    
+    // Actualizar en resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const newSlidesPerView = getSlidesPerView();
+        if (newSlidesPerView !== slidesPerView) {
+          slidesPerView = newSlidesPerView;
+          currentIndex = 0;
+          
+          // Recrear indicadores
+          indicatorsContainer.innerHTML = '';
+          const newMaxIndex = Math.max(0, totalSlides - slidesPerView);
+          for (let i = 0; i <= newMaxIndex; i++) {
+            const indicator = document.createElement('div');
+            indicator.classList.add('carousel-indicator');
+            if (i === 0) indicator.classList.add('active');
+            indicator.addEventListener('click', () => {
+              currentIndex = i;
+              updateCarousel();
+            });
+            indicatorsContainer.appendChild(indicator);
+          }
+          
+          updateCarousel();
+        }
+      }, 250);
+    });
+    
+    // Inicializar
+    updateCarousel();
+  }
+  
+  // Iniciar carrusel cuando cargue
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarCarruselTestimonios);
+  } else {
+    iniciarCarruselTestimonios();
   }
 
   // Schema.org
