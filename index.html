@@ -37,6 +37,7 @@
       <a href="#videos">Videos</a>
       <a href="#galeria">Galería</a>
       <a href="#testimonios">Testimonios</a>
+      <a href="matrimonio-solidario.html">Solidario</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <a href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20cotizar%20mi%20matrimonio" target="_blank" rel="noopener" class="btn-cotizar">Cotizar</a>
@@ -298,6 +299,51 @@
 </section>
 
 <!-- ============================================
+     CAPÍTULO SOLIDARIO — BANNER
+     (estilos autocontenidos: no depende de style.css)
+============================================ -->
+<section class="solidario-banner" id="solidario">
+  <style>
+    .solidario-banner{
+      background:linear-gradient(150deg,#c14d3c,#9c3a2c);
+      color:#fdfbf8;text-align:center;padding:72px 24px;
+    }
+    .solidario-banner .sb-eyebrow{
+      font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+      color:#f3d9b8;display:block;margin-bottom:16px;font-weight:500;
+    }
+    .solidario-banner h2{
+      font-family:'Cormorant Garamond',serif;font-weight:600;
+      font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.15;
+      max-width:720px;margin:0 auto 18px;
+    }
+    .solidario-banner h2 em{font-style:italic;color:#f3d9b8}
+    .solidario-banner p.sb-texto{
+      max-width:600px;margin:0 auto 32px;line-height:1.7;
+      font-weight:300;opacity:.95;
+    }
+    .solidario-banner .sb-btn{
+      display:inline-block;text-decoration:none;font-weight:500;
+      letter-spacing:.06em;padding:15px 36px;border-radius:2px;
+      background:#fdfbf8;color:#9c3a2c;transition:transform .2s ease;
+    }
+    .solidario-banner .sb-btn:hover{transform:translateY(-2px)}
+    .solidario-banner .sb-nota{
+      margin-top:18px;font-size:.82rem;opacity:.75;font-weight:300;
+    }
+  </style>
+  <span class="sb-eyebrow">— Capítulo Solidario —</span>
+  <h2>Tu matrimonio <em>regala</em> recuerdos</h2>
+  <p class="sb-texto">
+    Cada contratación en Portal Boda suma para un regalo único: la fotografía completa
+    de matrimonio para una pareja que no puede costearla. Tu boda celebra tu historia —
+    y ayuda a escribir la de alguien más.
+  </p>
+  <a class="sb-btn" href="matrimonio-solidario.html">Conoce cómo funciona</a>
+  <p class="sb-nota">¿Se casan en 2026 y no pueden costear su fotografía? También pueden postular al regalo.</p>
+</section>
+
+<!-- ============================================
      POSTBODA — SECCIÓN ESTRELLA
 ============================================ -->
 <section class="postboda-section" id="postboda">
@@ -391,14 +437,14 @@
       </div>
     </article>
 
-    <article class="servicio-card placeholder">
-      <div class="servicio-img servicio-img-icon">
-        <div class="icon-circle">🪞</div>
+    <article class="servicio-card">
+      <div class="servicio-img">
+        <iframe src="https://www.youtube.com/embed/Hy6qU1vosPM" title="Espejo Mágico y Cámara 360° en acción — Portal Boda" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" style="width:100%;height:100%;border:0;display:block;"></iframe>
       </div>
       <div class="servicio-content">
         <span class="servicio-num">05</span>
         <h3>Espejo Mágico</h3>
-        <p>Espejo interactivo con fotos impresas al instante, branding personalizado, cotillón y libro recuerdo. 2 horas.</p>
+        <p>Espejo interactivo con fotos impresas al instante, branding personalizado, cotillón y libro recuerdo. 2 horas. <strong>Míralo en acción junto a la Cámara 360°</strong> ▶</p>
       </div>
     </article>
 
@@ -829,6 +875,7 @@
       <button data-intent="packs">Ver Packs</button>
       <button data-intent="postboda">Postboda</button>
       <button data-intent="reserva">Reserva</button>
+      <button onclick="event.stopPropagation(); window.location.href='matrimonio-solidario.html'">🎁 Solidario</button>
       <button data-intent="cobertura">Cobertura</button>
       <button data-intent="entrega">Entrega</button>
       <button data-intent="contacto">Contacto</button>

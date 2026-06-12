@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capítulo Solidario · Tu matrimonio regala recuerdos | Portal Boda</title>
+<meta name="description" content="Cada matrimonio contratado en Portal Boda aporta al regalo de una fotografía de bodas completa para una pareja que no puede costearla. Conoce cómo funciona y postula.">
+<meta name="theme-color" content="#c14d3c">
+<meta property="og:title" content="Tu matrimonio regala recuerdos · Capítulo Solidario de Portal Boda">
+<meta property="og:description" content="Por cada contrataciones completadas, regalamos la fotografía de matrimonio completa a una pareja que no puede costearla. Tu boda, con doble sentido.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CL">
+<meta property="og:image" content="https://portalboda.cl/img/hero-allison-cristian.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PORTAL BODA · CAPÍTULO SOLIDARIO
+   Para actualizar la barra de avance del regalo, edita UNA
+   sola línea en el <script> al final del archivo:
+   const CUARTOS_COMPLETADOS = 0;   (valores válidos: 0 a 4)
+   ============================================================ */
+:root{
+  --terracota:#c14d3c;
+  --terracota-oscuro:#9c3a2c;
+  --tinta:#2b211e;
+  --tinta-suave:#5d4f49;
+  --papel:#faf6f1;
+  --crema:#f1e8dd;
+  --noche:#1d1614;
+  --noche-borde:#3a2e29;
+  --blanco-calido:#fdfbf8;
+  --dorado:#b6905a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  color:var(--tinta);
+  background:var(--papel);
+  line-height:1.7;
+  font-size:1.05rem;
+}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.15}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--terracota)}
+img{max-width:100%;display:block}
+a{color:inherit}
+.contenedor{max-width:1080px;margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:'Jost',sans-serif;font-weight:500;letter-spacing:.28em;
+  text-transform:uppercase;font-size:.72rem;color:var(--terracota);
+  display:block;margin-bottom:18px;
+}
+.btn{
+  display:inline-block;text-decoration:none;font-weight:500;
+  letter-spacing:.06em;padding:15px 34px;border-radius:2px;
+  font-size:.95rem;transition:transform .2s ease, background .2s ease;
+  text-align:center;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primario{background:var(--terracota);color:var(--blanco-calido)}
+.btn-primario:hover{background:var(--terracota-oscuro)}
+.btn-borde{border:1px solid var(--tinta);color:var(--tinta);background:transparent}
+.btn-borde:hover{background:var(--tinta);color:var(--papel)}
+.btn-claro{border:1px solid rgba(253,251,248,.5);color:var(--blanco-calido);background:transparent}
+.btn-claro:hover{background:var(--blanco-calido);color:var(--noche)}
+
+/* ---------- Header ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,246,241,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(43,33,30,.08);
+}
+.barra-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1080px;margin:0 auto}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.35rem;letter-spacing:.12em;text-decoration:none}
+.logo span{color:var(--terracota);font-weight:400;font-style:italic;letter-spacing:.02em}
+.nav-links{display:flex;gap:22px;align-items:center;font-size:.88rem;font-weight:400}
+.nav-links a{text-decoration:none;opacity:.85}
+.nav-links a:hover{opacity:1;color:var(--terracota)}
+.nav-cta{background:var(--terracota);color:var(--blanco-calido)!important;padding:9px 20px;border-radius:2px;opacity:1!important}
+.nav-volver{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid rgba(43,33,30,.25);padding:8px 16px;border-radius:2px;
+  font-weight:500;opacity:1!important;
+}
+.nav-volver:hover{border-color:var(--terracota);color:var(--terracota)}
+@media(max-width:680px){.nav-links a:not(.nav-cta):not(.nav-volver){display:none}}
+@media(max-width:420px){.nav-volver span{display:none}}
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative;
+  background:var(--noche);
+  color:var(--blanco-calido);
+  text-align:center;
+  padding:110px 24px 130px;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 0%, rgba(193,77,60,.22), transparent 70%),
+    radial-gradient(ellipse 55% 40% at 85% 100%, rgba(182,144,90,.12), transparent 70%);
+  pointer-events:none;
+}
+.hero .contenedor{position:relative}
+.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);max-width:820px;margin:0 auto 26px}
+.hero p.bajada{max-width:620px;margin:0 auto 42px;font-size:1.15rem;opacity:.92}
+.hero .acciones{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.claqueta{
+  font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--dorado);margin-bottom:20px;display:block;
+}
+
+/* ---------- Secciones ---------- */
+section{padding:90px 0}
+.seccion-titulo{text-align:center;max-width:680px;margin:0 auto 60px}
+.seccion-titulo h2{font-size:clamp(2rem,4.4vw,3rem);margin-bottom:18px}
+.seccion-titulo p{color:var(--tinta-suave)}
+
+/* ---------- La idea ---------- */
+.idea{background:var(--papel)}
+.idea-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.idea-texto h2{font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:22px}
+.idea-texto p{margin-bottom:18px;color:var(--tinta-suave)}
+.idea-texto strong{font-weight:500;color:var(--tinta)}
+.idea-cita{
+  border-left:3px solid var(--terracota);padding:6px 0 6px 24px;margin-top:28px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;line-height:1.4;
+}
+.idea-foto{border-radius:3px;overflow:hidden;box-shadow:0 24px 60px -24px rgba(43,33,30,.4)}
+@media(max-width:820px){.idea-grid{grid-template-columns:1fr}}
+
+/* ---------- Cómo funciona ---------- */
+.mecanica{background:var(--crema)}
+.aportes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:70px}
+.aporte{
+  background:var(--blanco-calido);border:1px solid rgba(43,33,30,.08);
+  border-radius:3px;padding:36px 28px;text-align:center;
+}
+.aporte .fraccion{
+  font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:700;
+  color:var(--terracota);line-height:1;margin-bottom:10px;
+}
+.aporte h3{font-size:1.25rem;margin-bottom:10px}
+.aporte p{font-size:.94rem;color:var(--tinta-suave)}
+.aporte.destacado{border-top:4px solid var(--terracota)}
+@media(max-width:820px){.aportes{grid-template-columns:1fr}}
+
+/* ---------- Cinta de película (firma de la página) ---------- */
+.cinta-wrap{max-width:760px;margin:0 auto;text-align:center}
+.cinta-wrap h3{font-size:1.6rem;margin-bottom:8px}
+.cinta-wrap .estado{font-size:.95rem;color:var(--tinta-suave);margin-bottom:30px}
+.cinta{
+  background:var(--noche);border-radius:6px;padding:18px 16px;
+  box-shadow:0 18px 44px -18px rgba(29,22,20,.55);
+}
+.perforaciones{display:flex;justify-content:space-between;padding:0 6px;margin-bottom:10px}
+.perforaciones.abajo{margin-bottom:0;margin-top:10px}
+.perforaciones span{width:14px;height:9px;background:var(--papel);border-radius:2px;opacity:.85}
+.fotogramas{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.fotograma{
+  position:relative;aspect-ratio:4/3;border-radius:3px;
+  background:repeating-linear-gradient(45deg,#262019,#262019 6px,#221c16 6px,#221c16 12px);
+  border:1px solid var(--noche-borde);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(253,251,248,.35);font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-size:.95rem;
+  transition:background .5s ease;
+}
+.fotograma.lleno{
+  background:linear-gradient(150deg,var(--terracota),var(--terracota-oscuro));
+  color:var(--blanco-calido);
+}
+.fotograma.lleno::after{content:"❤";position:absolute;top:8px;right:10px;font-size:.8rem;opacity:.85}
+.fotograma .pct{font-family:'Jost',sans-serif;font-style:normal;font-weight:500;letter-spacing:.08em;font-size:.8rem}
+.cinta-leyenda{margin-top:22px;font-size:.9rem;color:var(--tinta-suave)}
+.cinta-leyenda strong{color:var(--terracota);font-weight:500}
+
+/* ---------- El regalo ---------- */
+.regalo{background:var(--noche);color:var(--blanco-calido)}
+.regalo .seccion-titulo p{color:rgba(253,251,248,.75)}
+.regalo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:880px;margin:0 auto}
+.tarjeta-regalo{
+  border:1px solid var(--noche-borde);border-radius:3px;padding:38px 32px;
+  background:rgba(253,251,248,.03);
+}
+.tarjeta-regalo h3{font-size:1.45rem;margin-bottom:20px;color:var(--dorado)}
+.tarjeta-regalo ul{list-style:none}
+.tarjeta-regalo li{
+  padding:9px 0 9px 30px;position:relative;font-size:.97rem;
+  color:rgba(253,251,248,.88);border-bottom:1px solid rgba(253,251,248,.07);
+}
+.tarjeta-regalo li:last-child{border-bottom:none}
+.tarjeta-regalo li::before{content:"✓";position:absolute;left:0;color:var(--terracota);font-weight:600}
+.tarjeta-regalo.cubre li::before{content:"○";color:var(--dorado)}
+.regalo-nota{max-width:880px;margin:30px auto 0;font-size:.88rem;color:rgba(253,251,248,.6);text-align:center}
+@media(max-width:760px){.regalo-grid{grid-template-columns:1fr}}
+
+/* ---------- Postulación ---------- */
+.postular{background:var(--papel)}
+.postular-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start}
+.requisitos h3{font-size:1.5rem;margin-bottom:18px}
+.requisitos ol{list-style:none;counter-reset:req}
+.requisitos li{
+  counter-increment:req;position:relative;padding:14px 0 14px 56px;
+  border-bottom:1px solid rgba(43,33,30,.1);color:var(--tinta-suave);font-size:.97rem;
+}
+.requisitos li::before{
+  content:counter(req,decimal-leading-zero);
+  position:absolute;left:0;top:12px;
+  font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--terracota);
+}
+.requisitos li strong{color:var(--tinta);font-weight:500}
+.form-card{
+  background:var(--blanco-calido);border:1px solid rgba(43,33,30,.1);
+  border-radius:4px;padding:40px 36px;box-shadow:0 22px 50px -28px rgba(43,33,30,.3);
+}
+.form-card h3{font-size:1.5rem;margin-bottom:6px}
+.form-card .sub{font-size:.9rem;color:var(--tinta-suave);margin-bottom:26px}
+.campo{margin-bottom:18px}
+.campo label{display:block;font-size:.82rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;color:var(--tinta-suave)}
+.campo input,.campo textarea,.campo select{
+  width:100%;padding:13px 14px;border:1px solid rgba(43,33,30,.18);
+  border-radius:2px;font-family:'Jost',sans-serif;font-size:1rem;
+  background:var(--papel);color:var(--tinta);
+}
+.campo input:focus,.campo textarea:focus,.campo select:focus{
+  outline:2px solid var(--terracota);outline-offset:1px;border-color:transparent;
+}
+.campo textarea{min-height:110px;resize:vertical}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:var(--tinta-suave);margin:22px 0}
+.check input{margin-top:4px;accent-color:var(--terracota);width:17px;height:17px;flex-shrink:0}
+.form-card .btn{width:100%;border:none;cursor:pointer;font-family:'Jost',sans-serif}
+.form-nota{font-size:.8rem;color:var(--tinta-suave);margin-top:14px;text-align:center}
+@media(max-width:860px){.postular-grid{grid-template-columns:1fr}}
+
+/* ---------- Contratar / aportar ---------- */
+.aportar{background:var(--crema);text-align:center}
+.aportar .seccion-titulo{margin-bottom:36px}
+.aportar .acciones{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.aportar .detalle{max-width:560px;margin:24px auto 0;font-size:.92rem;color:var(--tinta-suave)}
+
+/* ---------- FAQ ---------- */
+.faq{background:var(--papel)}
+.faq-lista{max-width:760px;margin:0 auto}
+.faq details{
+  border-bottom:1px solid rgba(43,33,30,.12);padding:6px 0;
+}
+.faq summary{
+  cursor:pointer;font-weight:500;font-size:1.05rem;padding:16px 30px 16px 0;
+  list-style:none;position:relative;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:4px;top:12px;
+  font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--terracota);
+  transition:transform .25s ease;
+}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .respuesta{padding:0 0 20px;color:var(--tinta-suave);font-size:.97rem}
+
+/* ---------- Cierre ---------- */
+.cierre{
+  background:linear-gradient(150deg,var(--terracota),var(--terracota-oscuro));
+  color:var(--blanco-calido);text-align:center;padding:70px 24px;
+}
+.cierre h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:14px}
+.cierre h2 em{color:var(--blanco-calido);font-style:italic}
+.cierre p{max-width:540px;margin:0 auto 32px;opacity:.92}
+.cierre .acciones{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-blanco{background:var(--blanco-calido);color:var(--terracota-oscuro)}
+.btn-blanco:hover{background:var(--papel)}
+.btn-contorno{border:1px solid rgba(253,251,248,.7);color:var(--blanco-calido)}
+.btn-contorno:hover{background:rgba(253,251,248,.12)}
+
+/* ---------- Footer ---------- */
+footer{background:var(--noche);color:rgba(253,251,248,.75);padding:60px 0 40px;text-align:center;font-size:.9rem}
+footer .logo{color:var(--blanco-calido);display:inline-block;margin-bottom:14px}
+footer .lema{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:rgba(253,251,248,.85);margin-bottom:22px}
+footer a{color:var(--dorado);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .legal{margin-top:26px;font-size:.78rem;color:rgba(253,251,248,.45)}
+:focus-visible{outline:2px solid var(--terracota);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="barra-nav" aria-label="Navegación principal">
+    <a class="logo" href="https://portalboda.cl">PORTAL <span>Boda</span></a>
+    <div class="nav-links">
+      <a class="nav-volver" href="https://portalboda.cl">← <span>Volver al sitio</span></a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#el-regalo">El regalo</a>
+      <a href="#postular">Postular</a>
+      <a class="nav-cta" href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20cotizar%20mi%20matrimonio%20y%20aportar%20al%20Cap%C3%ADtulo%20Solidario">Cotizar</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="contenedor">
+    <span class="claqueta">Portal Boda presenta · Capítulo Solidario</span>
+    <h1>Tu matrimonio <em>regala</em> recuerdos</h1>
+    <p class="bajada">
+      Cada contratación en Portal Boda suma para un regalo único: la fotografía completa
+      de matrimonio —de la ceremonia a la fiesta— para una pareja que no puede costearla.
+      Porque cada matrimonio merece su propia película.
+    </p>
+    <div class="acciones">
+      <a class="btn btn-primario" href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20cotizar%20mi%20matrimonio%20y%20aportar%20al%20Cap%C3%ADtulo%20Solidario">Quiero aportar con mi matrimonio</a>
+      <a class="btn btn-claro" href="#postular">Postular al regalo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LA IDEA ============ -->
+<section class="idea">
+  <div class="contenedor idea-grid">
+    <div class="idea-texto">
+      <span class="eyebrow">— La idea —</span>
+      <h2>Un matrimonio con <em>doble sentido</em></h2>
+      <p>
+        Llevamos más de diez años documentando bodas en Chile, y hay algo que nos duele:
+        sabemos que muchas parejas se casan <strong>sin fotografías profesionales</strong> de su día,
+        simplemente porque no pueden pagarlas. Esos recuerdos no se repiten.
+      </p>
+      <p>
+        Por eso creamos el Capítulo Solidario: <strong>las parejas que contratan con nosotros
+        financian, entre todas, el regalo de una fotografía de matrimonio completa</strong> para
+        una pareja seleccionada que se casa durante 2026.
+      </p>
+      <p class="idea-cita">
+        "Tu boda no solo escribe tu historia: ayuda a escribir la de alguien más."
+      </p>
+    </div>
+    <div class="idea-foto">
+      <img src="https://portalboda.cl/img/hero-allison-cristian.jpg" alt="Pareja de novios en su sesión de fotos junto al mar" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ============ CÓMO FUNCIONA ============ -->
+<section class="mecanica" id="como-funciona">
+  <div class="contenedor">
+    <div class="seccion-titulo">
+      <span class="eyebrow">— Cómo funciona —</span>
+      <h2>Cada contratación <em>suma</em></h2>
+      <p>El regalo se completa entre varias parejas. Así aporta cada contratación:</p>
+    </div>
+
+    <div class="aportes">
+      <div class="aporte destacado">
+        <div class="fraccion">½</div>
+        <h3>Pack Matrimonio</h3>
+        <p>Fotografía profesional + 2 servicios de entretención. La forma más rápida de avanzar el regalo.</p>
+      </div>
+      <div class="aporte">
+        <div class="fraccion">¼</div>
+        <h3>Cada entretención</h3>
+        <p>Cabina fotográfica <em>o</em> Espejo Mágico, Cámara 360° o Glitter Bar. ¿Ya tienes fotógrafo? Tu entretención también aporta.</p>
+      </div>
+      <div class="aporte">
+        <div class="fraccion">1</div>
+        <h3>Regalo completo</h3>
+        <p>Al sumar un entero, regalamos la fotografía completa de matrimonio a una pareja postulante seleccionada.</p>
+      </div>
+    </div>
+
+    <div class="cinta-wrap">
+      <h3>El próximo regalo, <em>fotograma a fotograma</em></h3>
+      <p class="estado" id="estado-texto">Avance actual: <strong id="estado-pct">0%</strong> completado</p>
+      <div class="cinta" role="img" aria-label="Barra de avance del próximo regalo solidario" id="cinta-aria">
+        <div class="perforaciones" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="fotogramas" aria-hidden="true">
+          <div class="fotograma" data-n="1"><span class="pct">25%</span></div>
+          <div class="fotograma" data-n="2"><span class="pct">50%</span></div>
+          <div class="fotograma" data-n="3"><span class="pct">75%</span></div>
+          <div class="fotograma" data-n="4"><span class="pct">100%</span></div>
+        </div>
+        <div class="perforaciones abajo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="cinta-leyenda">
+        Cada fotograma equivale a <strong>¼ de regalo</strong>. Cuando la película se completa,
+        una pareja recibe su fotografía de matrimonio. Y empezamos la siguiente.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EL REGALO ============ -->
+<section class="regalo" id="el-regalo">
+  <div class="contenedor">
+    <div class="seccion-titulo">
+      <span class="eyebrow" style="color:var(--dorado)">— El regalo —</span>
+      <h2 style="color:var(--blanco-calido)">Qué recibe la pareja <em>seleccionada</em></h2>
+      <p>Un servicio real, completo y profesional. Sin letra chica escondida: aquí está todo.</p>
+    </div>
+    <div class="regalo-grid">
+      <div class="tarjeta-regalo">
+        <h3>Incluye, sin costo</h3>
+        <ul>
+          <li>Fotografía profesional de matrimonio</li>
+          <li>Cobertura desde la ceremonia hasta la fiesta</li>
+          <li>Edición básica de todas las fotografías (color, contraste y brillo)</li>
+          <li>Entrega digital vía WeTransfer o Google Drive</li>
+          <li>El mismo equipo y la misma dedicación de todos nuestros matrimonios</li>
+        </ul>
+      </div>
+      <div class="tarjeta-regalo cubre">
+        <h3>La pareja solo cubre</h3>
+        <ul>
+          <li>Alimentación del equipo fotográfico durante el evento</li>
+          <li>Traslados hacia y desde el lugar del matrimonio</li>
+          <li>Nada más: ni honorarios, ni equipos, ni edición</li>
+        </ul>
+      </div>
+    </div>
+    <p class="regalo-nota">
+      Matrimonios a realizarse durante 2026, en fechas con disponibilidad en nuestra agenda.
+      La selección se realiza por postulación según las bases de la iniciativa.
+    </p>
+  </div>
+</section>
+
+<!-- ============ POSTULAR ============ -->
+<section class="postular" id="postular">
+  <div class="contenedor">
+    <div class="seccion-titulo">
+      <span class="eyebrow">— Postulación —</span>
+      <h2>¿Se casan en 2026 y no pueden <em>costear</em> su fotografía?</h2>
+      <p>Postulen aquí. Leemos cada historia con respeto y cariño.</p>
+    </div>
+
+    <div class="postular-grid">
+      <div class="requisitos">
+        <h3>Requisitos para postular</h3>
+        <ol>
+          <li><strong>Matrimonio durante 2026</strong>, con fecha definida o tentativa, en nuestras zonas de cobertura (Región Metropolitana, litoral central o Región de O'Higgins).</li>
+          <li><strong>Fecha disponible</strong> en nuestra agenda — solo aceptamos un matrimonio por fecha.</li>
+          <li><strong>Acreditar que no podrían costear</strong> el servicio de fotografía profesional. La documentación se solicita de forma privada y confidencial solo a las parejas preseleccionadas.</li>
+          <li><strong>Cubrir alimentación del equipo y traslados</strong> el día del evento.</li>
+        </ol>
+      </div>
+
+      <div class="form-card">
+        <h3>Cuéntennos su historia</h3>
+        <p class="sub">Al enviar, se abrirá WhatsApp con su postulación lista para mandarnos.</p>
+        <form id="form-postulacion">
+          <div class="campo">
+            <label for="nombres">Nombres de la pareja</label>
+            <input type="text" id="nombres" name="nombres" required placeholder="Ej: Camila y Matías">
+          </div>
+          <div class="campo">
+            <label for="fecha">Fecha del matrimonio (o tentativa)</label>
+            <input type="text" id="fecha" name="fecha" required placeholder="Ej: 14 de marzo de 2026">
+          </div>
+          <div class="campo">
+            <label for="lugar">Comuna o lugar del evento</label>
+            <input type="text" id="lugar" name="lugar" required placeholder="Ej: Maipú, Santiago">
+          </div>
+          <div class="campo">
+            <label for="historia">Su historia (breve)</label>
+            <textarea id="historia" name="historia" required placeholder="Cuéntennos sobre ustedes y por qué postulan al regalo"></textarea>
+          </div>
+          <label class="check">
+            <input type="checkbox" id="declaracion" required>
+            <span>Declaramos que no podríamos costear el servicio de fotografía profesional y aceptamos acreditarlo de forma confidencial si somos preseleccionados, según las bases de la iniciativa.</span>
+          </label>
+          <button type="submit" class="btn btn-primario">Enviar postulación por WhatsApp</button>
+          <p class="form-nota">Sus datos se usan únicamente para esta postulación.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APORTAR ============ -->
+<section class="aportar">
+  <div class="contenedor">
+    <div class="seccion-titulo">
+      <span class="eyebrow">— Para los novios que contratan —</span>
+      <h2>Dale más <em>sentido</em> a tu matrimonio</h2>
+      <p>
+        Contrata tu pack de fotografía + entretención, o suma cabina fotográfica o espejo mágico,
+        cámara 360° o glitter bar a tu fiesta. Tu contratación avanza el próximo regalo —
+        y te lo mostraremos con orgullo.
+      </p>
+    </div>
+    <div class="acciones">
+      <a class="btn btn-primario" href="https://portalboda.cl/#packs">Ver packs y precios</a>
+      <a class="btn btn-borde" href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20cotizar%20y%20aportar%20al%20Cap%C3%ADtulo%20Solidario">Cotizar por WhatsApp</a>
+    </div>
+    <p class="detalle">
+      Reserva tu fecha con $90.000 · 1 a 3 cuotas sin intereses con tarjeta, o transferencia 50% + 50% ·
+      Solo aceptamos un matrimonio por fecha.
+    </p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq">
+  <div class="contenedor">
+    <div class="seccion-titulo">
+      <span class="eyebrow">— Preguntas frecuentes —</span>
+      <h2>Lo que necesitas <em>saber</em></h2>
+    </div>
+    <div class="faq-lista">
+      <details>
+        <summary>¿Quién paga el regalo? ¿Le suben el precio a los novios que contratan?</summary>
+        <p class="respuesta">No. Los packs y servicios mantienen sus precios normales. El regalo es un compromiso de Portal Boda: destinamos parte de nuestro trabajo a fotografiar, sin costo, el matrimonio de una pareja seleccionada cada vez que las contrataciones completan un entero.</p>
+      </details>
+      <details>
+        <summary>¿Cómo se elige a la pareja beneficiada?</summary>
+        <p class="respuesta">Por postulación. Revisamos las historias recibidas y preseleccionamos según los requisitos de las bases. A las parejas preseleccionadas les pedimos, de forma privada y confidencial, acreditar que no podrían costear el servicio. La selección final es comunicada directamente a la pareja y anunciada con su consentimiento.</p>
+      </details>
+      <details>
+        <summary>¿Qué pasa si mi fecha ya está tomada?</summary>
+        <p class="respuesta">Trabajamos un solo matrimonio por fecha, también para los regalos. Si la fecha postulada no está disponible, la postulación queda en espera para el siguiente regalo o puede actualizarse si la pareja cambia de fecha.</p>
+      </details>
+      <details>
+        <summary>¿El regalo incluye video, book o postboda?</summary>
+        <p class="respuesta">El regalo es la fotografía profesional del matrimonio, de la ceremonia a la fiesta, con edición básica y entrega digital. Los demás servicios (video, book, postboda, entretenciones) no están incluidos, aunque la pareja puede contratarlos con condiciones preferentes si lo desea.</p>
+      </details>
+      <details>
+        <summary>¿Hasta cuándo está vigente la iniciativa?</summary>
+        <p class="respuesta">Suman al regalo las contrataciones realizadas hasta septiembre de 2026. Los matrimonios regalados se realizan durante 2026, según disponibilidad de agenda y lo establecido en las bases.</p>
+      </details>
+      <details>
+        <summary>¿Dónde puedo leer las bases completas?</summary>
+        <p class="respuesta">Las bases de la iniciativa están disponibles solicitándolas por WhatsApp o correo, y serán publicadas en este mismo sitio. Ahí se detalla la mecánica de aportes, los requisitos, el proceso de selección y las condiciones del regalo.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="cierre">
+  <h2>¿Seguimos viendo tu <em>película</em>?</h2>
+  <p>
+    Vuelve al sitio para conocer nuestros packs, la postboda en Algarrobo y los videos
+    de matrimonios reales — o escríbenos directo para reservar tu fecha.
+  </p>
+  <div class="acciones">
+    <a class="btn btn-blanco" href="https://wa.me/56954189795?text=Hola%20Portal%20Boda%2C%20quiero%20contratar%20mi%20matrimonio%20y%20aportar%20al%20Cap%C3%ADtulo%20Solidario">Contratar mi matrimonio</a>
+    <a class="btn btn-contorno" href="https://portalboda.cl">← Volver a portalboda.cl</a>
+  </div>
+</section>
+
+<footer>
+  <div class="contenedor">
+    <a class="logo" href="https://portalboda.cl">PORTAL <span>Boda</span></a>
+    <p class="lema">"Cada matrimonio merece su propia película."</p>
+    <p>
+      <a href="https://wa.me/56954189795">WhatsApp +56 9 5418 9795</a> ·
+      <a href="https://instagram.com/portalboda">@portalboda</a> ·
+      <a href="https://portalboda.cl">portalboda.cl</a>
+    </p>
+    <p class="legal">© Portal Boda SpA · Iniciativa sujeta a bases · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<script>
+/* =====================================================
+   AVANCE DEL REGALO — edita SOLO esta línea:
+   0 = nada · 1 = 25% · 2 = 50% · 3 = 75% · 4 = ¡regalo completo!
+   ===================================================== */
+const CUARTOS_COMPLETADOS = 0;
+
+(function(){
+  const n = Math.max(0, Math.min(4, CUARTOS_COMPLETADOS));
+  const pct = n * 25;
+  document.querySelectorAll('.fotograma').forEach(f => {
+    if (Number(f.dataset.n) <= n) f.classList.add('lleno');
+  });
+  document.getElementById('estado-pct').textContent = pct + '%';
+  document.getElementById('cinta-aria').setAttribute('aria-label',
+    'Barra de avance del próximo regalo solidario: ' + pct + '% completado');
+  if (n === 4) {
+    document.getElementById('estado-texto').innerHTML =
+      '🎉 <strong>¡Regalo completado!</strong> Pronto anunciaremos a la pareja seleccionada.';
+  }
+})();
+
+/* Formulario de postulación → mensaje de WhatsApp prellenado */
+document.getElementById('form-postulacion').addEventListener('submit', function(e){
+  e.preventDefault();
+  const v = id => document.getElementById(id).value.trim();
+  const msg =
+    'Hola Portal Boda, queremos postular al Capítulo Solidario 💍\n\n' +
+    '• Pareja: ' + v('nombres') + '\n' +
+    '• Fecha del matrimonio: ' + v('fecha') + '\n' +
+    '• Lugar: ' + v('lugar') + '\n\n' +
+    'Nuestra historia:\n' + v('historia') + '\n\n' +
+    'Declaramos que no podríamos costear el servicio de fotografía profesional y aceptamos acreditarlo de forma confidencial si somos preseleccionados.';
+  window.open('https://wa.me/56954189795?text=' + encodeURIComponent(msg), '_blank');
+});
+</script>
+
+</body>
+</html>
