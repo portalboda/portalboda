@@ -1329,37 +1329,7 @@
     estudio: ['estudio-01.jpg', 'estudio-02.jpg'],
     sesiones: ['sesion-pareja.webp']
   };
-  
-  // ============================================
-  // GALERÍA CARRUSEL AUTOMÁTICO
-  // ============================================
-  
-  const galeriaFotos = {
-    postboda_color: [
-      'postboda-01.jpg', 'postboda-02.jpg', 'postboda-04.jpg',
-      'postboda-05.jpg', 'postboda-06-cargada.jpg', 'postboda-07.jpg',
-      'postboda-08-editorial.jpg', 'postboda-09-brazos.jpg',
-      'postboda-10-baile.jpg', 'postboda-11.jpg', 'postboda-12.jpg',
-      'postboda-13.jpg', 'postboda-14.jpg', 'postboda-15.jpg',
-      'postboda-16.jpg', 'postboda-17.jpg', 'postboda-18.jpg',
-      'postboda-19.jpg', 'postboda-20.jpg', 'postboda-21.jpg',
-      'hero-allison-cristian.jpg'
-    ],
-    postboda_bn: ['postboda-03-bn.jpg'],
-    ceremonia_vinedo: ['vinedo-01.jpg', 'vinedo-02.jpg', 'novio-vinedo.jpg'],
-    ceremonia: ['ceremonia-beso.jpg', 'novia-retrato.jpg'],
-    drone: [
-      'drone-vinedo.jpg', 'drone-ceremonia-01.jpg', 
-      'drone-ceremonia-02.jpg', 'drone-ceremonia-03.jpg'
-    ],
-    cabina: [
-      'cabina-blanca-flores.webp', 'cabina-blanca-interior.webp',
-      'cabina-negra.webp', 'cabina-libro.webp'
-    ],
-    estudio: ['estudio-01.jpg', 'estudio-02.jpg'],
-    sesiones: ['sesion-pareja.webp']
-  };
-  
+
   function iniciarGaleriaCarrusel() {
     const track = document.querySelector('.galeria-carousel-track');
     const dotsContainer = document.querySelector('.galeria-carousel-dots');
