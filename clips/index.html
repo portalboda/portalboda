@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chispa — Clips verticales</title>
+<meta name="description" content="Convierte videos largos en clips verticales 9:16 con subtítulos. Todo ocurre en tu navegador.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z%27 fill=%27%23E8572A%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z" fill="currentColor"/></svg>
+    <b>Chispa</b><span>clips verticales</span>
+  </div>
+  <nav class="steps" aria-label="Pasos">
+    <span id="st1" class="on">1 Cargar</span><span id="st2">2 Momentos</span><span id="st3">3 Editar</span><span id="st4">4 Exportar</span>
+  </nav>
+</header>
+
+<main>
+  <!-- PASO 1: CARGA -->
+  <section id="load" class="hero">
+    <h1>De un video largo a <em>clips que enganchan</em>.</h1>
+    <p class="lead">Sube tu video, Chispa detecta los momentos con más energía, los recorta en vertical 9:16, añade gancho y subtítulos, y los exporta listos para Shorts, Reels y TikTok.</p>
+
+    <div id="drop" class="drop" tabindex="0">
+      <input id="file" type="file" accept="video/*" hidden>
+      <p class="drop-t">Arrastra tu video aquí</p>
+      <p class="drop-s">MP4, WebM o MOV · se procesa en tu equipo, no se sube a ningún servidor</p>
+      <button id="btnPick" class="btn primary" type="button">Elegir video</button>
+    </div>
+
+    <div class="url">
+      <input id="urlInput" type="url" placeholder="…o pega un enlace directo a un archivo de video (.mp4)" aria-label="URL de video">
+      <button id="btnUrl" class="btn" type="button">Cargar enlace</button>
+    </div>
+    <p id="loadMsg" class="msg" role="status"></p>
+  </section>
+
+  <!-- ESPACIO DE TRABAJO -->
+  <section id="work" class="work" hidden>
+
+    <!-- Columna izquierda: momentos -->
+    <aside class="col left">
+      <div class="card">
+        <h2>Video</h2>
+        <p id="srcInfo" class="muted">—</p>
+        <button id="btnNew" class="btn small" type="button">Cambiar video</button>
+      </div>
+
+      <div class="card">
+        <h2>Detectar momentos</h2>
+        <div class="row2">
+          <label>Duración
+            <select id="selDur"><option value="20">~20 s</option><option value="30" selected>~30 s</option><option value="45">~45 s</option><option value="60">~60 s</option></select>
+          </label>
+          <label>Cantidad
+            <select id="selCount"><option value="3">3</option><option value="5" selected>5</option><option value="8">8</option></select>
+          </label>
+        </div>
+        <button id="btnAnalyze" class="btn primary wide" type="button">Buscar momentos virales</button>
+        <div id="prog" class="prog" hidden><i id="progBar"></i></div>
+        <p id="progTxt" class="muted small-t"></p>
+        <p class="muted small-t">Puntaje por energía de audio, movimiento y fuerza del arranque. Es una guía, no una garantía.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>Clips</h2><button id="btnManual" class="btn small" type="button">+ Clip manual</button></div>
+        <div id="moments" class="moments"><p class="muted small-t">Aún no hay clips. Busca momentos o crea uno manual desde el punto actual.</p></div>
+      </div>
+    </aside>
+
+    <!-- Centro: vista previa -->
+    <section class="col center">
+      <div class="stage"><canvas id="preview" width="540" height="960"></canvas><p id="stageHint" class="stage-hint">Selecciona o crea un clip</p></div>
+      <div class="transport">
+        <button id="btnPlay" class="btn primary" type="button" disabled>▶ Reproducir</button>
+        <button id="btnRestart" class="btn" type="button" disabled>↺ Inicio</button>
+        <span id="timeLbl" class="mono">0:00.0 / 0:00.0</span>
+      </div>
+      <input id="seek" class="seek" type="range" min="0" max="1000" value="0" disabled aria-label="Posición en el clip">
+    </section>
+
+    <!-- Derecha: edición -->
+    <aside class="col right" id="editor">
+      <div class="card">
+        <h2>Corte</h2>
+        <div class="row2">
+          <label>Inicio (s)<input id="cStart" type="number" min="0" step="0.1"></label>
+          <label>Fin (s)<input id="cEnd" type="number" min="0" step="0.1"></label>
+        </div>
+        <div class="row2">
+          <button id="btnSetStart" class="btn small" type="button">Inicio = ahora</button>
+          <button id="btnSetEnd" class="btn small" type="button">Fin = ahora</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Encuadre 9:16</h2>
+        <label>Modo
+          <select id="mode"><option value="fill">Rellenar (recorta lados)</option><option value="blur">Completo con fondo difuminado</option></select>
+        </label>
+        <label>Posición horizontal<input id="cropX" type="range" min="0" max="100" value="50"></label>
+        <label>Posición vertical<input id="cropY" type="range" min="0" max="100" value="50"></label>
+        <label>Zoom<input id="zoom" type="range" min="100" max="250" value="100"></label>
+      </div>
+
+      <div class="card">
+        <h2>Gancho (primeros 4 s)</h2>
+        <input id="hookText" type="text" maxlength="90" placeholder="Ej: Lo que nadie te dice de…">
+        <label class="chk"><input id="hookOn" type="checkbox" checked> Mostrar gancho</label>
+        <label class="chk"><input id="barOn" type="checkbox" checked> Barra de progreso</label>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>Subtítulos</h2><button id="btnAddCap" class="btn small" type="button">+ En el punto actual</button></div>
+        <div class="row2">
+          <label>Estilo
+            <select id="capStyle"><option value="viral">Viral (palabra activa)</option><option value="limpio">Limpio</option><option value="caja">Caja</option></select>
+          </label>
+          <label>Posición
+            <select id="capPos"><option value="low">Abajo</option><option value="mid">Centro</option><option value="top">Arriba</option></select>
+          </label>
+        </div>
+        <label>Tamaño<input id="capSize" type="range" min="32" max="90" value="56"></label>
+        <div id="capList" class="caplist"><p class="muted small-t">Sin subtítulos.</p></div>
+        <details>
+          <summary>Importar o pegar texto</summary>
+          <button id="btnSrt" class="btn small wide" type="button">Importar .srt / .vtt</button>
+          <input id="srtFile" type="file" accept=".srt,.vtt,text/vtt,application/x-subrip" hidden>
+          <textarea id="transcript" rows="3" placeholder="Pega el texto del clip. Se reparte en frases a lo largo del clip."></textarea>
+          <button id="btnSpread" class="btn small wide" type="button">Repartir texto en el clip</button>
+        </details>
+      </div>
+
+      <div class="card">
+        <h2>Exportar</h2>
+        <label>Calidad
+          <select id="selRes"><option value="720">720×1280 (rápido)</option><option value="1080">1080×1920 (máxima)</option></select>
+        </label>
+        <button id="btnExport" class="btn primary wide" type="button" disabled>Exportar clip</button>
+        <button id="btnCancel" class="btn wide" type="button" hidden>Cancelar</button>
+        <div id="expProg" class="prog" hidden><i id="expBar"></i></div>
+        <p id="expMsg" class="muted small-t">Se graba en tiempo real: la duración del clip es lo que tarda. Mantén esta pestaña visible.</p>
+        <div id="result" class="result" hidden></div>
+      </div>
+    </aside>
+  </section>
+</main>
+
+<video id="video" playsinline preload="auto" style="position:fixed;left:-9999px;width:2px;height:2px"></video>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
