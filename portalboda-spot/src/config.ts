@@ -35,6 +35,10 @@ export type ImageId = keyof typeof assets.images;
 export const img = (id: ImageId) => ({
   src: `img/${id}.jpg`,
   focal: assets.images[id].focal as [number, number],
+  w: assets.images[id].w,
+  h: assets.images[id].h,
+  /** Caja normalizada [x0, y0, x1, y1] con las cabezas: nunca sale de la ventana visible. */
+  subject: assets.images[id].subject as [number, number, number, number],
 });
 
 // Una toma puede usar un archivo distinto según formato (solo cambia el layout).

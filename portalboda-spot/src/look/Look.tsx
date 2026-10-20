@@ -46,12 +46,16 @@ export const Vignette: React.FC = () => (
   />
 );
 
+// Alto final de cada franja (también define la ventana visible para el encuadre).
+export const letterboxBar = (width: number, height: number) =>
+  height > width ? height * 0.028 : (height - width / 2.39) / 2;
+
 // Letterbox 2.39:1 animado en horizontal; franjas sutiles en vertical.
 export const Letterbox: React.FC = () => {
   const frame = useCurrentFrame();
   const { width, height } = useVideoConfig();
   const vertical = height > width;
-  const target = vertical ? height * 0.028 : (height - width / 2.39) / 2;
+  const target = letterboxBar(width, height);
   const bar = interpolate(frame, [4, 30], [vertical ? 0 : height * 0.5, target], {
     ...clamp,
     easing: EASE.out,

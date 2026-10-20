@@ -26,7 +26,7 @@ export const SafeArea: React.FC<{
     <AbsoluteFill
       style={{
         top: vertical ? "10%" : "17%",
-        bottom: vertical ? "18%" : "17%",
+        bottom: vertical ? "20%" : "17%", // 18% UI + 2% de aire
         left: vertical ? "7%" : "8%",
         right: vertical ? "12%" : "8%",
         width: "auto",

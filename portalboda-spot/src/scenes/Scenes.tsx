@@ -73,7 +73,7 @@ export const Montage: React.FC = () => {
               shot={shot}
               duration={duration}
               zoom={i % 3 === 0 ? [1.16, 1.06] : [1.05, 1.15]}
-              drift={[dir * -2, i % 2 ? 1.5 : -1.5]}
+              drift={[dir * -1, i % 2 ? 0.6 : -0.6]}
               whipIn={dir}
               whipOut={last ? 0 : -dir}
               whipFrames={4}
@@ -110,7 +110,7 @@ export const Hero: React.FC = () => {
             style={{ width: "100%", height: "100%", scale: String(1.04 + 0.05 * breathe), objectPosition: `${focal[0]}% ${focal[1]}%` }}
           />
         ) : (
-          <Shot id="hero" shot={HERO_SHOT} duration={dur} zoom={[1.02, 1.11]} drift={[-1.2, 0.8]} aberration />
+          <Shot id="hero" shot={HERO_SHOT} duration={dur} zoom={[1.02, 1.11]} drift={[-1, 0.6]} aberration avoid={vertical ? { bottom: 0.42 } : { right: 0.45 }} />
         )}
       </AbsoluteFill>
       {/* Scrim para legibilidad del texto */}
@@ -118,14 +118,14 @@ export const Hero: React.FC = () => {
         style={{
           background: vertical
             ? `linear-gradient(180deg, transparent 35%, ${PALETTE.carbon}CC 70%, ${PALETTE.carbon}E6 100%)`
-            : `linear-gradient(90deg, ${PALETTE.carbon}D9 0%, ${PALETTE.carbon}80 38%, transparent 62%)`,
+            : `linear-gradient(270deg, ${PALETTE.carbon}D9 0%, ${PALETTE.carbon}80 38%, transparent 62%)`,
         }}
       />
-      <SafeArea align={vertical ? "center" : "start"} justify={vertical ? "end" : "center"}>
-        <RevealLine size={vertical ? 92 : 100} delay={18} align={vertical ? "center" : "left"} out={dur - 10}>
+      <SafeArea align={vertical ? "center" : "end"} justify={vertical ? "end" : "center"}>
+        <RevealLine size={vertical ? 92 : 100} delay={18} align={vertical ? "center" : "right"} out={dur - 10}>
           Tu historia
         </RevealLine>
-        <RevealLine size={vertical ? 92 : 100} delay={26} align={vertical ? "center" : "left"} out={dur - 10}>
+        <RevealLine size={vertical ? 92 : 100} delay={26} align={vertical ? "center" : "right"} out={dur - 10}>
           merece <Em>cine.</Em>
         </RevealLine>
       </SafeArea>
@@ -138,6 +138,8 @@ export const FastCuts: React.FC = () => {
   const base = SECTIONS.fast.from;
   const vertical = useVertical();
   const total = SECTIONS.fast.to - base;
+  // En 16:9 la primera toma no deja espacio lateral sin tapar rostros: el texto entra en el 2º corte.
+  const textIn = vertical ? 8 : fastTimeline[1].from - base + 4;
   return (
     <AbsoluteFill style={{ backgroundColor: PALETTE.carbon }}>
       {fastTimeline.map(({ shot, from, duration }, i) => (
@@ -147,7 +149,8 @@ export const FastCuts: React.FC = () => {
             shot={shot}
             duration={duration}
             zoom={i === FAST_SHOTS.length - 1 ? [1.18, 1.04] : [1.04, 1.12]}
-            drift={[i % 2 ? 2 : -2, 0]}
+            drift={[i % 2 ? 1 : -1, 0]}
+            avoid={vertical ? { bottom: 0.42 } : { right: 0.42 }}
             whipIn={i === 0 ? 0 : i % 2 ? -1 : 1}
             whipOut={i === FAST_SHOTS.length - 1 ? 0 : i % 2 ? 1 : -1}
             whipFrames={4}
@@ -157,15 +160,15 @@ export const FastCuts: React.FC = () => {
       <AbsoluteFill
         style={{
           background: vertical
-            ? `linear-gradient(180deg, ${PALETTE.carbon}D0 0%, ${PALETTE.carbon}60 30%, transparent 50%)`
-            : `linear-gradient(0deg, ${PALETTE.carbon}E0 0%, ${PALETTE.carbon}70 30%, transparent 55%)`,
+            ? `linear-gradient(0deg, ${PALETTE.carbon}E6 0%, ${PALETTE.carbon}B0 25%, ${PALETTE.carbon}40 42%, transparent 55%)`
+            : `linear-gradient(270deg, ${PALETTE.carbon}D9 0%, ${PALETTE.carbon}80 36%, transparent 58%)`,
         }}
       />
-      <SafeArea justify={vertical ? "start" : "end"}>
-        <RevealLine size={vertical ? 64 : 64} delay={8} out={total - 10}>
+      <SafeArea align={vertical ? "center" : "end"} justify={vertical ? "end" : "center"}>
+        <RevealLine size={vertical ? 64 : 58} delay={textIn} out={total - 10} align={vertical ? "center" : "right"}>
           Videos de matrimonio
         </RevealLine>
-        <RevealLine size={vertical ? 64 : 64} delay={16} out={total - 10}>
+        <RevealLine size={vertical ? 64 : 58} delay={textIn + 8} out={total - 10} align={vertical ? "center" : "right"}>
           con look <Em>cinematográfico.</Em>
         </RevealLine>
       </SafeArea>

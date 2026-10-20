@@ -19,12 +19,12 @@ done 3<<'LIST'
 02_manos_ramo|ceremonia-exterior.jpg|full
 03_ramo_detalle|ceremonia-exterior.jpg|1920:1080:740:90
 04_beso_iglesia|ceremonia-beso-2024.jpg|full
-05_beso_rostros|ceremonia-beso-2024.jpg|1920:1080:450:385
+05_beso_rostros|ceremonia-beso-2024.jpg|2400:1350:300:230
 06_beso_manos|ceremonia-beso-2024.jpg|1920:1080:750:1670
 07_velo_playa|postboda-leyla-daniel.jpg|full
 08_velo_pareja|postboda-leyla-daniel.jpg|2400:1350:2286:800
 09_portico_bn|postboda-min-nacho.jpg|full
-10_portico_novia|postboda-min-nacho.jpg|2400:1350:450:750
+10_portico_novia|postboda-min-nacho.jpg|2400:1350:450:480
 11_abrazo_arco|postboda-pareja-bn.jpg|full
 12_abrazo_rostros|postboda-pareja-bn.jpg|1920:1080:440:130
 13_moto_atardecer|ceremonia-manos-ramo.jpg|full
