@@ -1,0 +1,31 @@
+{
+  "_nota": "PROVISIONAL. YouTube (@portalboda6955) bloqueado por la política de red del entorno. Encuadres tomados de fotos propias de Portal Boda (repo /img, contenido propio, sin stock). Reemplazar con scripts/fetch-youtube.sh y documentar videoId + timestamp.",
+  "images": {
+    "01_manos_detalle": { "source": "repo:img/ceremonia-exterior.jpg", "crop": "1920:1080:40:660", "videoId": null, "timestamp": null, "focal": [38, 55] },
+    "02_manos_ramo": { "source": "repo:img/ceremonia-exterior.jpg", "crop": "full", "videoId": null, "timestamp": null, "focal": [45, 60] },
+    "03_ramo_detalle": { "source": "repo:img/ceremonia-exterior.jpg", "crop": "1920:1080:740:90", "videoId": null, "timestamp": null, "focal": [60, 45] },
+    "04_beso_iglesia": { "source": "repo:img/ceremonia-beso-2024.jpg", "crop": "full", "videoId": null, "timestamp": null, "focal": [42, 30] },
+    "05_beso_rostros": { "source": "repo:img/ceremonia-beso-2024.jpg", "crop": "1920:1080:450:385", "videoId": null, "timestamp": null, "focal": [45, 40] },
+    "06_beso_manos": { "source": "repo:img/ceremonia-beso-2024.jpg", "crop": "1920:1080:750:1670", "videoId": null, "timestamp": null, "focal": [55, 50] },
+    "07_velo_playa": { "source": "repo:img/postboda-leyla-daniel.jpg", "crop": "full", "videoId": null, "timestamp": null, "focal": [66, 40] },
+    "08_velo_pareja": { "source": "repo:img/postboda-leyla-daniel.jpg", "crop": "2400:1350:2286:800", "videoId": null, "timestamp": null, "focal": [55, 40] },
+    "09_portico_bn": { "source": "repo:img/postboda-min-nacho.jpg", "crop": "full", "videoId": null, "timestamp": null, "focal": [32, 50] },
+    "10_portico_novia": { "source": "repo:img/postboda-min-nacho.jpg", "crop": "2400:1350:450:750", "videoId": null, "timestamp": null, "focal": [45, 40] },
+    "11_abrazo_arco": { "source": "repo:img/postboda-pareja-bn.jpg", "crop": "full", "videoId": null, "timestamp": null, "focal": [55, 40] },
+    "12_abrazo_rostros": { "source": "repo:img/postboda-pareja-bn.jpg", "crop": "1920:1080:440:130", "videoId": null, "timestamp": null, "focal": [45, 35] },
+    "13_moto_atardecer": { "source": "repo:img/ceremonia-manos-ramo.jpg", "crop": "full", "videoId": null, "timestamp": null, "focal": [50, 32] },
+    "14_moto_beso": { "source": "repo:img/ceremonia-manos-ramo.jpg", "crop": "2000:1125:0:300", "videoId": null, "timestamp": null, "focal": [45, 50] }
+  },
+  "clips": {},
+  "sfx": {
+    "whoosh": { "source": "generado con ffmpeg (ruido rosa filtrado), sin licencias de terceros" }
+  },
+  "descartados": {
+    "postboda-moto-atardecer.jpg / _DSF8239.jpg": "1825 px de ancho (< 1920)",
+    "postboda-velo-volando.jpg / _DSF6404.jpg": "1633 px de ancho (< 1920)",
+    "drone-boda-aereo.jpg": "behind the scenes con equipo y flash visibles",
+    "postboda-01..11, hero, vinedo-*": "1600 px de ancho (< 1920)",
+    "logo.png (raíz)": "es una foto de 1600 px, no un logo",
+    "postboda-13..21.jpg": "archivos rotos (texto, no imagen)"
+  }
+}
