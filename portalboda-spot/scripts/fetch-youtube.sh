@@ -20,3 +20,13 @@ for f in raw/*.mp4; do
 done
 echo "Revisa candidates/, copia los 14 elegidos a public/img y registra id+timestamp en assets.json"
 # Microclip ejemplo (1-2 s): ffmpeg -ss 00:01:23.4 -i raw/ID.mp4 -t 1.8 -an -c:v libx264 -crf 16 public/clips/beso.mp4
+
+# Música: MUSIC_ID=<id del video del canal> MUSIC_START=00:00:30 scripts/fetch-youtube.sh
+# Extrae 15 s a public/audio/track.mp3; luego en src/config.ts: MUSIC_TRACK = "audio/track.mp3".
+# OJO: si la pista es comercial, su licencia no cubre publicidad (Content ID / silenciado en Meta/TikTok).
+if [ -n "${MUSIC_ID:-}" ]; then
+  mkdir -p public/audio
+  yt-dlp -x --audio-format mp3 -o "raw/music_%(id)s.%(ext)s" "https://www.youtube.com/watch?v=$MUSIC_ID" </dev/null
+  ffmpeg -nostdin -y -ss "${MUSIC_START:-0}" -i "raw/music_$MUSIC_ID.mp3" -t 15 \
+    -af "afade=t=in:d=0.2,afade=t=out:st=13.8:d=1.2,loudnorm=I=-14:TP=-1" public/audio/track.mp3
+fi

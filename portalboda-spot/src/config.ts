@@ -103,3 +103,23 @@ export const CUTS: number[] = Array.from(new Set([
   ...fastTimeline.map((s) => s.from),
   SECTIONS.end.from,
 ])).sort((a, b) => a - b);
+
+// ---- Diseño sonoro (public/sfx, generados con ffmpeg, sin licencias de terceros) ----
+// at = frame del corte; lead = frames antes del corte donde arranca el sonido (pico en el corte).
+export type Sfx = { file: string; at: number; lead: number; volume: number };
+const montageCuts = montageTimeline.slice(1).map((s) => s.from);
+const fastCuts = fastTimeline.slice(1).map((s) => s.from);
+export const SFX: Sfx[] = [
+  { file: "sfx/burn.wav", at: 2, lead: 0, volume: 0.45 },
+  { file: "sfx/whoosh.wav", at: SECTIONS.montage.from, lead: 7, volume: 0.6 },
+  ...montageCuts.map((at) => ({ file: "sfx/whoosh.wav", at, lead: 7, volume: 0.32 })),
+  { file: "sfx/riser.wav", at: SECTIONS.hero.from, lead: 42, volume: 0.35 },
+  ...(BURN_LEN > 0 ? [{ file: "sfx/burn.wav", at: SECTIONS.hero.from - BURN_LEN, lead: 0, volume: 0.4 }] : []),
+  { file: "sfx/impact.wav", at: SECTIONS.hero.from, lead: 0, volume: 0.7 },
+  { file: "sfx/whoosh.wav", at: SECTIONS.fast.from, lead: 7, volume: 0.55 },
+  ...fastCuts.map((at) => ({ file: "sfx/swish.wav", at, lead: 4, volume: 0.45 })),
+  { file: "sfx/impact.wav", at: SECTIONS.end.from, lead: 0, volume: 0.45 },
+  { file: "sfx/pad.wav", at: SECTIONS.end.from + 4, lead: 0, volume: 0.3 },
+];
+// Con música, los SFX bajan para no competir con la pista.
+export const SFX_GAIN_WITH_MUSIC = 0.6;
