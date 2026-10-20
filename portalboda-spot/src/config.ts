@@ -129,3 +129,11 @@ export const SFX: Sfx[] = [
 ];
 // Con música, los SFX bajan para no competir con la pista.
 export const SFX_GAIN_WITH_MUSIC = 0.6;
+
+// ---- Variantes A/B/C (frase del momento héroe) para test de anuncios ----
+export const HERO_LINES = {
+  A: { line1: "El día pasa.", line2: "La película ", em: "queda." },
+  B: { line1: "Lo que sentiste,", line2: "", em: "tal como fue." },
+  C: { line1: "No es un video.", line2: "Es tu ", em: "película." },
+} as const;
+export type Variant = keyof typeof HERO_LINES;

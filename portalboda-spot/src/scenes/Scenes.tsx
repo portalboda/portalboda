@@ -15,6 +15,7 @@ import {
   EASE,
   FAST_SHOTS,
   HERO_CLIP,
+  HERO_LINES,
   HERO_SHOT,
   HOOK_SHOT,
   LOGO,
@@ -22,6 +23,7 @@ import {
   SECTIONS,
   fastTimeline,
   montageTimeline,
+  type Variant,
 } from "../config";
 import { Shot, useShotImage, useVertical } from "../components/Shot";
 import { Em, Kicker, RevealLine, SANS, SERIF, SafeArea } from "../components/Type";
@@ -91,7 +93,8 @@ export const Montage: React.FC = () => {
 };
 
 // 180–270 · Momento héroe en cámara lenta (microclip a 0.5x o still con deriva lenta).
-export const Hero: React.FC = () => {
+export const Hero: React.FC<{ variant: Variant }> = ({ variant }) => {
+  const text = HERO_LINES[variant];
   const frame = useCurrentFrame();
   const vertical = useVertical();
   const dur = SECTIONS.hero.to - SECTIONS.hero.from;
@@ -122,11 +125,12 @@ export const Hero: React.FC = () => {
         }}
       />
       <SafeArea align={vertical ? "center" : "end"} justify={vertical ? "end" : "center"}>
-        <RevealLine size={vertical ? 92 : 100} delay={18} align={vertical ? "center" : "right"} out={dur - 10}>
-          Tu historia
+        <RevealLine size={vertical ? 88 : 84} delay={18} align={vertical ? "center" : "right"} out={dur - 10}>
+          {text.line1}
         </RevealLine>
-        <RevealLine size={vertical ? 92 : 100} delay={26} align={vertical ? "center" : "right"} out={dur - 10}>
-          merece <Em>cine.</Em>
+        <RevealLine size={vertical ? 88 : 84} delay={26} align={vertical ? "center" : "right"} out={dur - 10}>
+          {text.line2}
+          <Em>{text.em}</Em>
         </RevealLine>
       </SafeArea>
     </AbsoluteFill>
