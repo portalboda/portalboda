@@ -4,15 +4,15 @@ import assets from "../assets.json";
 export const FPS = 30;
 export const DURATION = 450; // 15 s exactos
 
-// Música: "Si nada es suficiente" (Kuzzy). Prepara el corte con scripts/prepare-music.sh;
-// si existe public/audio/track.mp3 se usa automáticamente.
+// Música: pista original compuesta para el spot (scripts/compose-music.py, 100 BPM, Re mayor).
+// Para otra canción: scripts/prepare-music.sh. Si existe public/audio/track.mp3 se usa automáticamente.
 const MUSIC_FILE = "audio/track.mp3";
 export const MUSIC_TRACK: string | null = getStaticFiles().some((f) => f.name === MUSIC_FILE) ? MUSIC_FILE : null;
 // Logo: si existe en public/logo, pon su ruta (ej. "logo/portalboda.png"); null = wordmark.
 export const LOGO: string | null = null;
 
 // BPM configurable: los cortes del montaje y de la sección rápida caen en la grilla.
-export const BPM = 100; // [ajustar al tempo real de la canción; prepare-music.sh lo estima]
+export const BPM = 100; // = tempo de la pista original; si cambias de canción usa el BPM que estima prepare-music.sh
 export const BEAT = (FPS * 60) / BPM;
 
 export const PALETTE = {

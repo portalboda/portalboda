@@ -268,5 +268,12 @@
     "logo.png (raíz)": "es una foto de 1600 px, no un logo",
     "postboda-13..21.jpg": "archivos rotos (texto, no imagen)"
   },
-  "_subject": "subject = caja normalizada [x0,y0,x1,y1] con las cabezas (o el detalle). El encuadre nunca la saca de la ventana visible."
+  "_subject": "subject = caja normalizada [x0,y0,x1,y1] con las cabezas (o el detalle). El encuadre nunca la saca de la ventana visible.",
+  "music": {
+    "file": "public/audio/track.mp3",
+    "source": "original, compuesta por código (scripts/compose-music.py): piano, cuerdas y percusión sintetizados, sin samples ni licencias de terceros",
+    "bpm": 100,
+    "key": "Re mayor",
+    "loudness": "-14 LUFS"
+  }
 }
