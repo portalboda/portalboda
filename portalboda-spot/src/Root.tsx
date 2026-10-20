@@ -2,6 +2,7 @@ import React from "react";
 import { Composition } from "remotion";
 import { DURATION, FPS, HERO_LINES, Variant } from "./config";
 import { Spot } from "./Spot";
+import { HOOK_DURATION, Hook } from "./hook/Hook";
 
 const FORMATS = [
   { id: "16x9", width: 1920, height: 1080 },
@@ -25,5 +26,8 @@ export const RemotionRoot: React.FC = () => (
         />
       )),
     )}
+    {FORMATS.map((f) => (
+      <Composition key={`hook-${f.id}`} id={`Hook${f.id}`} component={Hook} durationInFrames={HOOK_DURATION} fps={FPS} width={f.width} height={f.height} />
+    ))}
   </>
 );
